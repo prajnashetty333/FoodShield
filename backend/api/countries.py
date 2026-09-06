@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.services.country_service import get_country_options, get_country_analysis
-from backend.schemas.country import CountryOptions, CountryAnalysisResponse
+from services.country_service import get_country_options, get_country_analysis
+from schemas.country import CountryOptions, CountryAnalysisResponse
 
 router = APIRouter()
 
