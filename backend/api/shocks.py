@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
-from backend.services.shock_service import get_shock_analysis
-from backend.schemas.shock import ShockAnalysisResponse
+from services.shock_service import get_shock_analysis
+from schemas.shock import ShockAnalysisResponse
 
 router = APIRouter()
 
