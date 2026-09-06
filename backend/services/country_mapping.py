@@ -1,6 +1,6 @@
 import pandas as pd
 from functools import lru_cache
-import backend.config as cfg
+import config as cfg
 
 @lru_cache(maxsize=1)
 def _load_mappings():
