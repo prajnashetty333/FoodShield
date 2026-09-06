@@ -1,5 +1,5 @@
-from backend.services.data_loader import data_loader
-from backend.schemas.sensitivity import SensitivityAnalysisResponse, SensitivitySummaryItem, ProfileTransitions
+from services.data_loader import data_loader
+from schemas.sensitivity import SensitivityAnalysisResponse, SensitivitySummaryItem, ProfileTransitions
 from fastapi import HTTPException
 import math
 
