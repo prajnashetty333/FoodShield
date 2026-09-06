@@ -30,9 +30,9 @@ export const ReplacementPathway = () => {
   useEffect(() => {
     fetchCountryOptions().then(res => {
       setOptions(res);
-      if (res.countries.length > 0) setCountry(res.countries[0]);
-      if (res.commodities.length > 0) setCommodity(res.commodities[0]);
-      if (res.years.length > 0) setYear(res.years[res.years.length - 1]);
+      if (res.countries.length > 0) setCountry(res.countries.includes('Japan') ? 'Japan' : res.countries[0]);
+      if (res.commodities.length > 0) setCommodity(res.commodities.includes('Maize') ? 'Maize' : res.commodities[0]);
+      if (res.years.length > 0) setYear(res.years.includes(2011) ? 2011 : res.years[res.years.length - 1]);
     });
   }, []);
 

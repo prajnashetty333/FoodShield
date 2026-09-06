@@ -1,120 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchSensitivity } from '../services/api';
 import { SensitivityAnalysisResponse } from '../types';
-import { KPICard } from '../components/KPICard';
 
-function fmt(val: number | null | undefined, decimals = 2): string {
-  if (val == null) return '--';
-  return val.toFixed(decimals);
-}
-
-function fmtInt(val: number | null | undefined): string {
-  if (val == null) return '--';
-  return val.toLocaleString();
-}
-
-const HEEC_SCALES = [
-  { scale: 1.00, label: '100% HEEC', experiment: 'A_W0_1.00' },
-  { scale: 0.75, label: '75% HEEC', experiment: 'A_W0_0.75' },
-  { scale: 0.50, label: '50% HEEC', experiment: 'A_W0_0.50' },
-  { scale: 0.25, label: '25% HEEC', experiment: 'A_W0_0.25' },
+const scales = [
+  { experiment: 'A_W0_1.00', capacity: '100%', label: 'Baseline' },
+  { experiment: 'A_W0_0.75', capacity: '75%', label: 'Reduced once' },
+  { experiment: 'A_W0_0.50', capacity: '50%', label: 'Reduced twice' },
+  { experiment: 'A_W0_0.25', capacity: '25%', label: 'Hardest tested case' },
 ];
+const fmt = (value: number | null | undefined, decimals = 2) => value == null ? '--' : value.toFixed(decimals);
 
 export const Sensitivity = () => {
   const [data, setData] = useState<SensitivityAnalysisResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchSensitivity()
-      .then(setData)
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <div className="text-muted animate-pulse">Loading sensitivity analysis...</div>;
-  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm"><p className="text-[#e23b2a] font-light text-lg">Error: {error}</p></div>;
+  useEffect(() => { fetchSensitivity().then(setData).catch(err => setError(err.message)).finally(() => setLoading(false)); }, []);
+  if (loading) return <div className="text-muted animate-pulse">Loading robustness analysis…</div>;
+  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 text-[#e23b2a]">{error}</div>;
   if (!data) return <div className="text-muted">No data available</div>;
+  const results = scales.map(item => ({ ...item, summary: data.summaries.find(summary => summary.experiment === item.experiment) }));
+  const transitionMax = Math.max(data.transitions_100_to_25.A_to_C, data.transitions_100_to_25.C_to_D, 1);
 
-  return (
-    <div className="space-y-16">
-      <header className="border-b border-line pb-12">
-        <p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-4">06 &mdash; The Robustness</p>
-        
-        <div className="mb-8 p-6 bg-[#1565c0]/5 border-l-4 border-[#1565c0]">
-          <div className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-2">RQ 5 &mdash; Sensitivity to Capacity</div>
-          <h2 className="text-2xl font-serif text-ink mb-0">How sensitive are replacement outcomes to the assumed historical export-expansion capacity?</h2>
-        </div>
+  return <div className="space-y-28 md:space-y-40 max-w-6xl mx-auto">
+    <header className="pt-2 pb-16 border-b border-line"><p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[.2em] mb-6">06 — The Robustness</p><h1 className="font-serif text-5xl md:text-7xl leading-[.95] text-ink uppercase">Does the answer survive a harder test?</h1><p className="mt-8 max-w-4xl text-xl md:text-2xl font-light leading-relaxed text-body">FOODSHIELD tests how the modeled replacement result changes when the historical export-expansion capacity proxy is progressively reduced.</p></header>
 
-        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
-          How much does the result depend on our assumptions?
-        </h1>
-        <p className="text-body text-xl font-light mb-8 max-w-3xl">
-          Assessing the robustness of modeled resilience profiles when the Historical Export-Expansion Capacity (HEEC) proxy is scaled down.
-        </p>
+    <section className="grid grid-cols-1 lg:grid-cols-[.85fr_1.15fr] gap-12 lg:gap-20 items-end"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-6">The stress test</p><h2 className="font-serif text-4xl md:text-6xl leading-tight text-ink">Less assumed capacity. Same question.</h2></div><p className="border-l-2 border-[#1565c0] pl-6 text-lg font-light leading-relaxed text-body">The analysis begins with the historical capacity proxy and then makes it smaller: 75%, 50%, and 25% of the baseline. It asks whether the modeled ability to replace lost supply changes when the available expansion room is made more conservative.</p></section>
 
-        <div className="bg-wash border-l-4 border-l-[#1565c0] p-6 max-w-4xl text-body text-sm leading-relaxed">
-          <strong className="text-ink font-semibold">HEEC Note:</strong> HEEC is a historical export-expansion capacity proxy derived from past global outward trade. It should not be interpreted as guaranteed spare physical capacity or predicted future exports.
-        </div>
-      </header>
+    <section><div className="mb-10"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-4">Capacity assumption chart</p><h2 className="font-serif text-3xl md:text-4xl text-ink">Modeled replacement stays high across the tested scaling cases.</h2></div><div className="border border-line bg-wash p-6 md:p-10"><div className="h-64 md:h-80 flex items-end justify-between gap-4 md:gap-8 border-b border-l border-line px-4 md:px-8 pt-8">{results.map(({ capacity, label, summary }) => { const rate = summary?.mean_replacement_rate; return <div key={capacity} className="h-full flex-1 flex flex-col justify-end items-center min-w-0"><div className="mb-3 font-serif text-lg md:text-2xl text-ink whitespace-nowrap">{fmt(rate)}%</div><div className="w-full max-w-28 bg-[#1565c0] transition-all" style={{ height: rate == null ? '0%' : `${rate}%` }} /><div className="mt-4 text-center"><div className="text-sm font-semibold text-ink">{capacity}</div><div className="text-[10px] uppercase tracking-wider text-muted mt-1">{label}</div></div></div>; })}</div><p className="mt-10 text-sm font-light leading-relaxed text-muted">Mean modeled replacement rate by historical export-expansion capacity proxy scale. Values are returned from the existing sensitivity API: 99.83% at baseline, 99.75% at 75%, 99.57% at 50%, and 98.91% at 25%.</p></div></section>
 
-      <section>
-        <h2 className="text-xs font-semibold text-ink mb-6 uppercase tracking-widest border-b border-line pb-2">What changes when the assumption changes?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {HEEC_SCALES.map(({ label, experiment }) => {
-            const sum = data.summaries.find(s => s.experiment === experiment);
-            return (
-              <div key={experiment} className="bg-paper border border-line p-6 rounded-md">
-                <h3 className="text-xs font-semibold text-muted uppercase tracking-widest mb-6">{label}</h3>
-                <div className="space-y-6">
-                  <div>
-                    <div className="text-[10px] text-muted uppercase tracking-widest mb-1 font-semibold">Mean Replacement</div>
-                    <div className="text-3xl font-light text-ink">{sum ? fmt(sum.mean_replacement_rate) : '--'}%</div>
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-muted uppercase tracking-widest mb-1 font-semibold">Current Network Share</div>
-                    <div className="text-2xl font-light text-[#0e9f6a]">{sum ? fmt(sum.type_A_share) : '--'}%</div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+    <section className="bg-ink text-white p-8 md:p-14"><div className="grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-12"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#8fb8e8] mb-5">What shifts first</p><h2 className="font-serif text-3xl md:text-4xl leading-tight">The pathways can change even when the headline rate changes modestly.</h2></div><div className="space-y-5 text-lg font-light leading-relaxed text-gray-300"><p>As the capacity proxy is reduced, fewer scenarios can rely entirely on current suppliers. The model can then draw more on historical suppliers and eligible new origins, where the tested conditions allow.</p><p>The current-supplier share shown below is an API result. It describes a modeled pathway, not a guarantee that any supplier will trade in a future disruption.</p></div></div><div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-700">{results.map(({ capacity, summary }) => <div key={capacity} className="bg-ink p-5"><p className="text-[10px] uppercase tracking-widest text-gray-400">{capacity} capacity</p><p className="mt-4 text-3xl font-serif text-white">{fmt(summary?.type_A_share)}%</p><p className="mt-2 text-xs text-gray-400">current suppliers only</p></div>)}</div></section>
 
-      <section className="bg-wash p-8 rounded-sm border border-line">
-        <h2 className="text-sm font-semibold text-ink mb-6 uppercase tracking-widest">
-          Profile Transitions (100% HEEC → 25% HEEC)
-        </h2>
-        <p className="text-body text-lg font-light mb-8 leading-relaxed max-w-4xl">
-          Restricting the HEEC proxy shifts more modeled importer–commodity–year scenarios toward less favorable replacement profiles.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <KPICard
-            title="Type A to Type C Transitions"
-            value={fmtInt(data.transitions_100_to_25.A_to_C)}
-            subtitle="Scenarios losing current-network sufficiency"
-            className="border-l-4 border-l-[#e6a817]"
-          />
-          <KPICard
-            title="Type C to Type D Transitions"
-            value={fmtInt(data.transitions_100_to_25.C_to_D)}
-            subtitle="Scenarios becoming structurally constrained"
-            className="border-l-4 border-l-[#e23b2a]"
-          />
-        </div>
-      </section>
+    <section><div className="grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-12 mb-10"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Transition view</p><h2 className="font-serif text-3xl md:text-4xl text-ink">What changes from 100% to 25%?</h2></div><p className="text-lg font-light leading-relaxed text-body">This transition heatmap uses the existing API comparison of the baseline and most constrained tested capacity case. It shows scenario counts moving to less favorable modeled pathways; it does not create a new score.</p></div><div className="grid grid-cols-1 md:grid-cols-2 gap-6">{[{ label: 'Current suppliers → new-origin dependent', value: data.transitions_100_to_25.A_to_C, color: '#e6a817' }, { label: 'New-origin dependent → structurally constrained', value: data.transitions_100_to_25.C_to_D, color: '#e23b2a' }].map(item => <div key={item.label} className="border border-line p-7 md:p-9"><p className="text-[10px] font-semibold uppercase tracking-[.16em] text-muted">100% → 25% HEEC transition</p><div className="mt-7 h-12 bg-wash overflow-hidden"><div className="h-full" style={{ width: `${(item.value / transitionMax) * 100}%`, backgroundColor: item.color }} /></div><div className="mt-6 flex justify-between gap-6 items-end"><p className="max-w-xs text-base font-light leading-relaxed text-body">{item.label}</p><p className="font-serif text-5xl text-ink">{item.value.toLocaleString()}</p></div></div>)}</div></section>
 
-      <section className="bg-wash p-8 md:p-12 rounded-sm border border-line">
-        <h2 className="text-sm font-semibold text-ink mb-4 uppercase tracking-widest">What this means</h2>
-        <p className="text-body text-xl font-light leading-relaxed mb-6 font-serif">
-          The modeled network structure is highly robust to HEEC proxy contractions. Even when the HEEC proxy is scaled to 25% of baseline,
-          the vast majority of scenarios retain their original modeled resilience profiles.
-        </p>
-        <div className="text-xs text-muted border-t border-[#d7e2ec] pt-4 max-w-2xl">
-          <strong>Limitation:</strong> These are modeled outcomes under specified historical trade assumptions — not predictions of real-world food security or actual available export volume during a crisis.
-        </div>
-      </section>
-    </div>
-  );
+    <section className="border border-line bg-wash p-8 md:p-12"><details><summary className="cursor-pointer list-none flex justify-between gap-8 items-center"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-3">Method note</p><h2 className="font-serif text-3xl text-ink">What is HEEC?</h2></div><span className="text-2xl text-[#1565c0]">+</span></summary><div className="pt-8 mt-8 border-t border-line max-w-4xl space-y-5 text-lg font-light leading-relaxed text-body"><p>Historical Export-Expansion Capacity is a proxy based on observed past growth in countries’ outward trade. FOODSHIELD uses it to limit the model’s assumed ability to expand supply after a shock.</p><p>It is not a measure of guaranteed spare stock, a forecast of future exports, or a claim about what will happen in a real crisis. Different historical windows and different supplier shock ranks can change sensitivity results, which is why they are tested rather than assumed away.</p></div></details></section>
+
+    <section className="py-24 text-center bg-wash border-t border-line"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-6">The conclusion</p><h2 className="font-serif text-4xl md:text-6xl text-ink uppercase">The result survives the stress test.</h2><p className="mt-8 max-w-3xl mx-auto text-xl font-light leading-relaxed text-body">Within the tested capacity-scaling and historical-window scenarios, the headline modeled replacement result remains high.</p><p className="mt-5 max-w-2xl mx-auto text-sm font-light leading-relaxed text-muted">This qualification applies only to the specified historical trade and capacity-proxy scenarios; it is not a guarantee of real-world resilience.</p><Link to="/policy" className="inline-flex mt-12 px-12 py-5 bg-ink text-white text-sm font-semibold uppercase tracking-widest hover:bg-[#1a365d] transition-colors">07 — The Decision →</Link></section>
+  </div>;
 };

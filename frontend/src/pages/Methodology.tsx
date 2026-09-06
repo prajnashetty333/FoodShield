@@ -2,49 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { fetchMethodology } from '../services/api';
 import { MethodologyResponse } from '../types';
 
+const pipeline = ['FAOSTAT', 'Data engineering', 'Food / country universe', 'Exposure', 'Trade network', 'Supplier shock', 'Replacement', 'Resilience profile', 'Sensitivity', 'Decision insights'];
+const steps = [
+  ['01', 'Measure exposure', 'Measure import dependence, supplier shares, and the structure of observed imports.'],
+  ['02', 'Build the trade network', 'Connect importers to suppliers by food and year using positive bilateral trade flows.'],
+  ['03', 'Remove suppliers', 'Remove the selected Rank‑1 supplier in a defined counterfactual shock.'],
+  ['04', 'Try to replace lost supply', 'Allocate modeled replacement through current suppliers, then qualifying historical suppliers, then eligible new origins.'],
+  ['05', 'Constrain replacement', 'Limit expansion using the historical export-expansion capacity proxy and do not replace more than the lost supply.'],
+  ['06', 'Classify the pathway', 'Classify the modeled outcome by the pathway through which supply is replaced, or remains unreplaced.'],
+  ['07', 'Stress the assumption', 'Repeat under more conservative capacity scaling and alternative historical windows.'],
+];
+
 export const Methodology = () => {
   const [data, setData] = useState<MethodologyResponse | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => { fetchMethodology().then(setData).catch(err => setError(err.message)); }, []);
+  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 text-[#e23b2a]">{error}</div>;
+  if (!data) return <div className="text-muted animate-pulse">Loading methodology…</div>;
+  return <div className="space-y-28 md:space-y-40 max-w-6xl mx-auto">
+    <header className="pt-2 pb-16 border-b border-line"><p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[.2em] mb-6">08 — The Methodology</p><h1 className="font-serif text-5xl md:text-7xl leading-[.95] text-ink uppercase">From observed trade to a modeled supplier shock.</h1><p className="mt-8 max-w-4xl text-xl md:text-2xl font-light leading-relaxed text-body">FOODSHIELD combines food-system exposure, bilateral trade relationships, supplier shocks, historical supplier relationships, and historical export-expansion capacity into a structured counterfactual analysis.</p></header>
 
-  useEffect(() => {
-    fetchMethodology()
-      .then(setData)
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+    <section className="bg-ink text-white p-8 md:p-14"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#8fb8e8] mb-6">The research question</p><h2 className="max-w-5xl font-serif text-3xl md:text-5xl leading-tight">When a country depends on one foreign supplier for an important food, can existing trade relationships replace most of the lost supply — or does resilience require a new origin?</h2><p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-gray-300">This is a counterfactual: FOODSHIELD models what the historical trade network would show if a supplier were removed. It does not claim that the event occurred or predict that it will.</p></section>
 
-  if (loading) return <div className="text-muted animate-pulse">Loading methodology limitations...</div>;
-  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm"><p className="text-[#e23b2a] font-light text-lg">Error: {error}</p></div>;
-  if (!data) return <div className="text-muted">No data available</div>;
+    <section><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">The analytical pipeline</p><h2 className="font-serif text-3xl md:text-4xl text-ink mb-10">A traceable route from source data to decision questions.</h2><div className="flex flex-wrap gap-3">{pipeline.map((item, index) => <React.Fragment key={item}><div className="px-4 py-3 border border-line bg-paper text-xs font-semibold uppercase tracking-wider text-ink">{item}</div>{index < pipeline.length - 1 && <span className="self-center text-[#1565c0] text-xl">→</span>}</React.Fragment>)}</div><p className="mt-6 text-sm font-light leading-relaxed text-muted">Each stage is kept distinct so descriptive trade evidence, the shock experiment, replacement feasibility, and decision interpretation are not treated as the same thing.</p></section>
 
-  return (
-    <div className="space-y-16 max-w-4xl">
-      <header className="border-b border-line pb-12">
-        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
-          What we don't know
-        </h1>
-        <p className="text-body text-xl font-light mb-8 max-w-3xl">
-          Factors explicitly excluded from the FOODSHIELD modeling framework.
-        </p>
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Source data</p><h2 className="font-serif text-4xl text-ink">Grounded in FAOSTAT.</h2><p className="mt-6 text-lg font-light leading-relaxed text-body">The analysis brings together FAOSTAT trade and food-balance data, then applies validated country and commodity mappings before any supplier shock is modeled.</p></div><div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-line border border-line"><div className="bg-paper p-6"><p className="text-[10px] uppercase tracking-widest font-semibold text-muted">Trade</p><p className="mt-4 text-sm font-light text-body">Bilateral import and export relationships.</p></div><div className="bg-paper p-6"><p className="text-[10px] uppercase tracking-widest font-semibold text-muted">Food system</p><p className="mt-4 text-sm font-light text-body">Domestic supply and food-balance context.</p></div><div className="bg-paper p-6"><p className="text-[10px] uppercase tracking-widest font-semibold text-muted">Supporting data</p><p className="mt-4 text-sm font-light text-body">Validated country, commodity, and historical relationship inputs.</p></div></div></section>
 
-        <div className="bg-wash border-l-4 border-l-[#e23b2a] p-6 text-body text-sm leading-relaxed">
-          <strong className="text-ink font-semibold">Core Disclaimer:</strong> {data.disclaimer}
-        </div>
-      </header>
+    <section className="border-y border-line py-12"><div className="grid grid-cols-1 md:grid-cols-2 gap-12"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Locked scope</p><div className="font-serif text-6xl text-ink">220</div><p className="mt-2 text-sm uppercase tracking-widest text-muted">Validated country / economy universe</p><p className="mt-6 text-lg font-light leading-relaxed text-body">The final network contains the observed importing and supplying countries within this validated FAOSTAT application universe.</p></div><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Six locked commodities</p><div className="flex flex-wrap gap-2">{['Wheat', 'Rice', 'Maize', 'Palm Oil', 'Sugar', 'Sunflower Oil'].map(item => <span key={item} className="border border-line px-4 py-3 text-sm font-semibold text-ink">{item}</span>)}</div><p className="mt-6 text-sm font-light leading-relaxed text-muted">The commodity set is locked before the analysis; it is not selected from the model’s results.</p></div></div></section>
 
-      <div className="bg-paper">
-        <h2 className="text-sm font-semibold text-ink uppercase tracking-widest mb-8 border-b border-line pb-2">What FOODSHIELD Does Not Model</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
-          {data.limitations.map((limitation, idx) => (
-            <div key={idx} className="flex items-start">
-              <span className="text-[#e23b2a] font-serif text-lg mr-4 mt-0.5">—</span>
-              <span className="text-body font-light text-lg leading-relaxed font-serif">{limitation}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    <section><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Time matters</p><h2 className="font-serif text-3xl md:text-4xl text-ink mb-10">The source period and primary analysis period are deliberately different.</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-6"><div className="border border-line p-8"><p className="text-[10px] uppercase tracking-widest font-semibold text-muted">Source trade network</p><p className="mt-4 font-serif text-5xl text-ink">2010–2023</p><p className="mt-5 text-body font-light leading-relaxed">Observed trade links are assembled across the full source period.</p></div><div className="border border-[#1565c0] bg-[#1565c0]/5 p-8"><p className="text-[10px] uppercase tracking-widest font-semibold text-[#1565c0]">Primary capacity-valid analysis</p><p className="mt-4 font-serif text-5xl text-ink">2011–2023</p><p className="mt-5 text-body font-light leading-relaxed">2010 has no prior history for the capacity calculation, so the primary replacement analysis begins in 2011.</p></div></div></section>
+
+    <section><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">How the model proceeds</p><div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-line border border-line">{steps.map(([number, title, copy]) => <article key={number} className="bg-paper p-7 md:p-8"><p className="font-serif text-3xl text-[#1565c0]">{number}</p><h2 className="mt-4 font-serif text-2xl text-ink">{title}</h2><p className="mt-3 text-base font-light leading-relaxed text-body">{copy}</p></article>)}</div></section>
+
+    <section className="grid grid-cols-1 lg:grid-cols-[.9fr_1.1fr] gap-12 lg:gap-20"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Validation and reconciliation</p><h2 className="font-serif text-4xl text-ink">Outputs are checked, not simply displayed.</h2></div><div className="space-y-4"><div className="border-l-4 border-[#0e9f6a] bg-wash p-5 text-body">Primary replacement accounting reconciles: Tier 1 + Tier 2 + Tier 3 + unreplaced supply equals lost supply for all 10,953 primary rows.</div><div className="border-l-4 border-[#0e9f6a] bg-wash p-5 text-body">The locked six commodities, primary years, Rank‑1 scope, and capacity-valid filter are checked against the analytical baseline.</div><div className="border-l-4 border-[#0e9f6a] bg-wash p-5 text-body">Backend serialization preserves missing analytical observations as null rather than turning them into zero.</div></div></section>
+
+    <section className="bg-wash border border-line p-8 md:p-12"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#e23b2a] mb-5">Limitations and caveats</p><h2 className="font-serif text-3xl md:text-4xl text-ink">What the model leaves outside the frame.</h2><p className="mt-5 max-w-4xl text-lg font-light leading-relaxed text-body">Missing values remain missing. FOODSHIELD does not convert an unavailable observation into a zero result. It also does not model the real-world conditions that can determine whether trade can actually move during a disruption.</p><div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">{data.limitations.map(item => <div key={item} className="text-sm font-light text-body border-l-2 border-[#e23b2a] pl-3">{item}</div>)}</div><p className="mt-8 text-sm text-muted"><strong className="text-ink">Core limitation:</strong> {data.disclaimer}</p></section>
+
+    <section className="py-24 text-center border-t border-line"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-6">The methodological takeaway</p><h2 className="max-w-4xl mx-auto font-serif text-4xl md:text-6xl leading-tight text-ink">A trade network can adapt in different ways. FOODSHIELD measures the supplier shock and the modeled replacement pathways — it does not guarantee the outcome.</h2><div className="mt-12 flex flex-wrap justify-center items-center gap-3 text-xs font-semibold uppercase tracking-wider text-body"><span>Observed trade</span><span className="text-[#1565c0]">→</span><span>Modeled shock</span><span className="text-[#1565c0]">→</span><span>Replacement pathways</span><span className="text-[#1565c0]">→</span><span>Structured questions</span></div></section>
+  </div>;
 };

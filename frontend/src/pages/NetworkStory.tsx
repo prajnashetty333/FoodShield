@@ -1,248 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const NetworkStory = () => {
-  return (
-    <div className="space-y-32 max-w-5xl mx-auto">
-      {/* HEADER */}
-      <section className="border-b border-line pb-16">
-        <p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-4">03 &mdash; The Network</p>
-        <h1 className="text-5xl md:text-6xl font-normal text-ink font-serif mb-8 leading-tight">
-          Who actually supplies whom &mdash; and how stable are those relationships?
-        </h1>
-        <p className="text-xl text-body font-light leading-relaxed max-w-3xl">
-          FOODSHIELD does not treat international food trade as a collection of isolated import totals. 
-          It represents trade as a supplier network. The purpose of this chapter is to understand how broad, 
-          persistent, and changing those supplier relationships are before a supplier shock is introduced.
-        </p>
-      </section>
+const Metric = ({ value, label }: { value: string; label: string }) => <div className="border-t border-line pt-4"><div className="font-serif text-4xl md:text-5xl text-ink">{value}</div><p className="mt-2 text-[10px] font-semibold uppercase tracking-[.16em] text-muted leading-relaxed">{label}</p></div>;
 
-      {/* NETWORK SCALE */}
-      <section className="bg-wash p-12 border border-line">
-        <h2 className="text-[10px] font-semibold text-muted mb-12 uppercase tracking-[0.2em]">Network Scale (2010–2023)</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12">
-          <div className="border-l-2 border-[#1565c0] pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">128,486</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Network Edges / Relationships</div>
-          </div>
-          <div className="border-l-2 border-[#1565c0] pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">25,497</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Importer–Supplier–Commodity</div>
-          </div>
-          <div className="border-l-2 border-[#1565c0] pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">10,229</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Importer–Supplier Pairs</div>
-          </div>
-          <div className="border-l-2 border-line pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">178</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Importers</div>
-          </div>
-          <div className="border-l-2 border-line pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">197</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Suppliers</div>
-          </div>
-          <div className="border-l-2 border-line pl-6">
-            <div className="text-4xl font-light text-ink mb-2 font-serif">14</div>
-            <div className="text-xs font-semibold text-body uppercase tracking-widest">Trade-Analysis Years</div>
-          </div>
-        </div>
+export const NetworkStory = () => <div className="space-y-28 md:space-y-40 max-w-6xl mx-auto">
+  <header className="pt-2 pb-16 border-b border-line">
+    <p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[.2em] mb-6">03 — The Network</p>
+    <h1 className="max-w-5xl font-serif text-4xl md:text-6xl font-normal text-ink leading-[1.08] uppercase">Who actually supplies whom — and how stable are those relationships?</h1>
+    <p className="mt-10 max-w-3xl text-xl font-light leading-relaxed text-body">Before FOODSHIELD removes a supplier, it follows the observed trade relationships that connect importers, suppliers, commodities, and years. This chapter describes that network; it does not yet make a resilience claim.</p>
+  </header>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-line">
-          <div>
-            <div className="text-sm font-semibold text-ink mb-1">Average suppliers per system</div>
-            <div className="text-2xl font-light text-body font-serif">10.98</div>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-ink mb-1">Median suppliers per system</div>
-            <div className="text-2xl font-light text-body font-serif">9</div>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-ink mb-1">Maximum suppliers observed</div>
-            <div className="text-2xl font-light text-body font-serif">79</div>
-          </div>
-        </div>
-      </section>
+  <section className="grid grid-cols-1 lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-end">
+    <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-6">The central observation</p><h2 className="font-serif text-5xl md:text-7xl leading-[.95] text-ink">Food trade is a network, not a single supply line.</h2></div>
+    <p className="text-lg font-light leading-relaxed text-body border-l-2 border-[#1565c0] pl-6">Across six locked commodities and 2010–2023, FOODSHIELD records 128,486 positive-flow supplier relationships. Each relationship is an observed link, not a promise that it will remain available in another year.</p>
+  </section>
 
-      {/* NETWORK VISUAL */}
-      <section>
-        <h2 className="text-[10px] font-semibold text-muted mb-8 uppercase tracking-[0.2em] text-center">Conceptual Network Topology</h2>
-        <div className="bg-paper border border-line py-20 px-8 flex flex-col items-center justify-center relative overflow-hidden">
-          
-          <div className="w-full max-w-2xl flex flex-col items-center">
-            
-            {/* Top Node */}
-            <div className="z-10 bg-white border-2 border-ink py-3 px-6 shadow-sm rounded-sm mb-12">
-              <span className="text-sm font-bold tracking-widest uppercase text-ink">Importer</span>
-            </div>
-            
-            {/* SVG Connecting Lines */}
-            <svg className="absolute w-full h-[120px] top-[100px] pointer-events-none" preserveAspectRatio="none">
-              <path d="M 50% 0 L 20% 120" stroke="#d1d5db" strokeWidth="2" fill="none" strokeDasharray="4 4" />
-              <path d="M 50% 0 L 35% 120" stroke="#d1d5db" strokeWidth="2" fill="none" />
-              <path d="M 50% 0 L 50% 120" stroke="#1565c0" strokeWidth="3" fill="none" />
-              <path d="M 50% 0 L 65% 120" stroke="#d1d5db" strokeWidth="2" fill="none" />
-              <path d="M 50% 0 L 80% 120" stroke="#d1d5db" strokeWidth="2" fill="none" strokeDasharray="4 4" />
-            </svg>
-            
-            {/* Middle Nodes (Suppliers) */}
-            <div className="z-10 flex w-full justify-between items-center mb-12 relative px-4">
-               <div className="bg-wash border border-muted py-2 px-4 rounded-sm opacity-50 hidden sm:block">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-muted">Supplier 1</span>
-               </div>
-               <div className="bg-wash border border-muted py-2 px-4 rounded-sm">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-muted">Supplier 2</span>
-               </div>
-               <div className="bg-[#eff6ff] border-2 border-[#1565c0] py-4 px-6 rounded-sm shadow-sm scale-110">
-                  <span className="text-sm font-bold tracking-widest uppercase text-[#1565c0]">Largest Supplier</span>
-               </div>
-               <div className="bg-wash border border-muted py-2 px-4 rounded-sm">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-muted">Supplier 4</span>
-               </div>
-               <div className="bg-wash border border-muted py-2 px-4 rounded-sm opacity-50 hidden sm:block">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-muted">Supplier 5</span>
-               </div>
-            </div>
+  <section className="border-y border-line py-10 md:py-14"><p className="text-[10px] font-semibold uppercase tracking-[.2em] text-muted mb-10">Observed network scale · 2010–2023</p><div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"><Metric value="128,486" label="Positive-flow relationships" /><Metric value="25,497" label="Importer–supplier–commodity systems" /><Metric value="10,229" label="Distinct importer–supplier pairs" /><Metric value="178" label="Importing countries" /><Metric value="197" label="Supplying countries" /><Metric value="14" label="Trade-analysis years" /></div></section>
 
-            {/* Bottom Nodes (Commodities) */}
-            <div className="z-10 bg-white border border-line py-3 px-6 shadow-sm rounded-sm">
-              <span className="text-sm font-semibold tracking-widest uppercase text-body">Commodity Flows</span>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* THE NETWORK IS BROAD BUT NOT STATIC */}
-      <section>
-        <h2 className="text-2xl font-serif text-ink mb-6 uppercase">The network is broad &mdash; but not static</h2>
-        <p className="text-lg text-body font-light leading-relaxed mb-8">
-          Across 2010&ndash;2023, FOODSHIELD observes thousands of importer&ndash;supplier relationships across the six selected commodities. 
-          However, relationships do not necessarily persist continuously. Supplier relationships are often intermittent rather than continuously active.
-          This matters because a supplier that existed historically may not be an active supplier in a particular shock year.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 pt-12 border-t border-line">
-          <div>
-            <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-8">Relationship Persistence</h3>
-            <div className="space-y-6">
-              <div className="flex justify-between items-end border-b border-line pb-2">
-                <span className="text-body font-light">Average active years per pairing</span>
-                <span className="text-2xl font-serif text-ink">5.04 <span className="text-base text-muted font-sans">years</span></span>
-              </div>
-              <div className="flex justify-between items-end border-b border-line pb-2">
-                <span className="text-body font-light">Average persistence</span>
-                <span className="text-2xl font-serif text-ink">35.99%</span>
-              </div>
-              <div className="flex justify-between items-end border-b border-line pb-2">
-                <span className="text-body font-light">Median persistence</span>
-                <span className="text-2xl font-serif text-ink">21.43%</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-8">Network Turnover</h3>
-            <div className="space-y-6">
-              <div className="flex justify-between items-end border-b border-line pb-2">
-                <span className="text-body font-light">New entries observed</span>
-                <span className="text-2xl font-serif text-[#0e9f6a]">34,534</span>
-              </div>
-              <div className="flex justify-between items-end border-b border-line pb-2">
-                <span className="text-body font-light">Exits observed</span>
-                <span className="text-2xl font-serif text-[#e23b2a]">31,420</span>
-              </div>
-            </div>
-            <p className="text-sm text-muted font-light leading-relaxed mt-4">
-              Observed supplier relationships enter and leave the network over time.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY PERSISTENCE MATTERS FOR REPLACEMENT */}
-      <section className="bg-ink text-white p-12">
-        <h2 className="text-2xl font-serif mb-6 uppercase text-white">Why history matters for the shock</h2>
-        <p className="text-lg font-light leading-relaxed text-gray-300 mb-12">
-          A supplier network is not simply a list of countries. Some suppliers are active now. Some were observed historically. 
-          Others have no qualifying prior bilateral relationship. The FOODSHIELD replacement model treats those situations differently.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="border border-gray-700 p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-2">Tier 1</h3>
-            <div className="text-xl font-serif mb-4">Current Suppliers</div>
-            <p className="text-sm text-gray-400 font-light">Suppliers active in the shock year.</p>
-          </div>
-          <div className="border border-gray-700 p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-2">Tier 2</h3>
-            <div className="text-xl font-serif mb-4">Historical Suppliers</div>
-            <p className="text-sm text-gray-400 font-light">Suppliers that supplied the same importer and commodity in at least two distinct pre-shock years but are absent in the shock year.</p>
-          </div>
-          <div className="border border-gray-700 p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-2">Tier 3</h3>
-            <div className="text-xl font-serif mb-4">New Origins</div>
-            <p className="text-sm text-gray-400 font-light">Eligible new origins with no qualifying prior bilateral relationship, providing modeled contribution from a new origin.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* EXPLANATORY BLOCKS */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-16">
-        <div>
-          <h3 className="text-xl font-serif text-ink uppercase mb-4">A large network does not mean an even network</h3>
-          <p className="text-body font-light leading-relaxed mb-6">
-            An importer may have many observed suppliers while still receiving a large share of imports from a small number of suppliers. 
-            Therefore, <strong>Supplier count &ne; Supplier concentration</strong> and <strong>Supplier concentration &ne; Shock loss</strong>.
-          </p>
-          <div className="bg-wash border border-line p-6 flex flex-col items-center justify-center text-center space-y-2">
-            <div className="text-sm font-semibold uppercase tracking-widest text-ink">Supplier Count</div>
-            <div className="text-xl text-muted">+</div>
-            <div className="text-sm font-semibold uppercase tracking-widest text-ink">Supplier Shares</div>
-            <div className="text-xl text-muted">&darr;</div>
-            <div className="text-sm font-semibold uppercase tracking-widest text-body bg-white border border-line py-2 px-4 w-full">Network Structure</div>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-serif text-ink uppercase mb-4">Network structure is not the same as resilience</h3>
-          <p className="text-body font-light leading-relaxed mb-6">
-            The network chapter describes <em>observed trade relationships</em>. 
-            The later shock and replacement chapters test what happens under a <em>defined counterfactual supplier disappearance</em>.
-          </p>
-          <ul className="space-y-4 text-sm font-light text-body border-l-2 border-line pl-6">
-            <li><strong className="font-semibold text-ink">Observed network</strong> &rarr; descriptive evidence</li>
-            <li><strong className="font-semibold text-ink">Supplier shock</strong> &rarr; counterfactual experiment</li>
-            <li><strong className="font-semibold text-ink">Replacement model</strong> &rarr; modeled recovery feasibility</li>
-            <li><strong className="font-semibold text-ink">Resilience profile</strong> &rarr; classification of the modeled outcome</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* NETWORK FLOW SCALE */}
-      <section className="text-center">
-        <h2 className="text-[10px] font-semibold text-muted mb-4 uppercase tracking-[0.2em]">Network Quantity</h2>
-        <div className="text-5xl md:text-7xl font-light text-ink font-serif mb-6">5,124,398,255</div>
-        <div className="text-sm font-semibold text-body uppercase tracking-widest mb-8">Tonnes</div>
-        <p className="text-body font-light max-w-2xl mx-auto text-sm">
-          Network quantity represented in the Step 7B analytical network across the six locked commodities (Wheat, Rice, Maize, Palm Oil, Sugar, Sunflower Oil). 
-          The network quantity reconciles exactly to the Step 6A bilateral quantity after excluding self-trade and zero/null flows.
-        </p>
-      </section>
-
-      {/* TRANSITION */}
-      <section className="py-24 text-center border-t border-line bg-wash">
-        <h2 className="text-3xl font-serif text-ink mb-12 leading-relaxed">
-          We know the network.<br/>
-          Now remove its dominant supplier.
-        </h2>
-        
-        <Link 
-          to="/shock" 
-          className="inline-flex items-center justify-center px-12 py-5 bg-ink text-white text-sm font-semibold tracking-widest uppercase hover:bg-[#1a365d] transition-colors"
-        >
-          SIMULATE THE SHOCK &rarr;
-        </Link>
-      </section>
-
+  <section>
+    <div className="max-w-3xl mb-10"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-4">Reading the network</p><h2 className="font-serif text-3xl md:text-4xl text-ink">One importer can be connected to several suppliers — with different observed shares.</h2></div>
+    <div className="border border-line bg-wash p-5 md:p-10 overflow-x-auto"><div className="flex justify-between gap-4 mb-8 text-[10px] uppercase tracking-[.16em] font-semibold text-muted"><span>Conceptual representation of observed bilateral links</span><span className="hidden sm:inline">Line width indicates relative flow</span></div>
+      <svg viewBox="0 0 1000 400" className="w-full min-w-[560px] h-auto" role="img" aria-label="Conceptual food trade network showing an importer connected to suppliers">
+        <path d="M470 200 C360 75 280 75 180 75" stroke="#F6DBC0" strokeWidth="7" fill="none"/><path d="M470 200 C350 145 275 150 180 150" stroke="#935073" strokeWidth="18" fill="none"/><path d="M470 200 C350 230 275 235 180 235" stroke="#935073" strokeOpacity=".55" strokeWidth="10" fill="none"/><path d="M470 200 C350 325 280 325 180 325" stroke="#935073" strokeOpacity=".45" strokeWidth="5" fill="none" strokeDasharray="9 9"/><path d="M530 200 C650 130 740 130 850 130" stroke="#F6DBC0" strokeWidth="4" fill="none"/><path d="M530 200 C650 270 740 270 850 270" stroke="#F6DBC0" strokeWidth="4" fill="none"/>
+        <rect x="420" y="145" width="160" height="110" rx="3" fill="#502D55"/><text x="500" y="190" textAnchor="middle" fill="#F8F4E9" fontSize="17" fontWeight="600" letterSpacing="2">IMPORTER</text><text x="500" y="216" textAnchor="middle" fill="#F6DBC0" fontSize="12">one commodity · one year</text>
+        <g fontSize="13" fontWeight="600" textAnchor="middle"><rect x="30" y="50" width="185" height="48" fill="#F8F4E9" stroke="#F6DBC0"/><text x="122" y="79" fill="#502D55">SUPPLIER A</text><rect x="30" y="125" width="185" height="48" fill="#F6DBC0" stroke="#935073" strokeWidth="2"/><text x="122" y="154" fill="#502D55">LARGEST SUPPLIER</text><rect x="30" y="210" width="185" height="48" fill="#F8F4E9" stroke="#F6DBC0"/><text x="122" y="239" fill="#502D55">SUPPLIER C</text><rect x="30" y="300" width="185" height="48" fill="#F8F4E9" stroke="#F6DBC0"/><text x="122" y="329" fill="#502D55">HISTORICAL LINK</text><text x="850" y="118" fill="#502D55">OTHER OBSERVED LINKS</text><text x="850" y="258" fill="#502D55">NETWORK CONTINUES</text></g>
+      </svg>
+      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-xs text-body"><span><i className="inline-block w-8 h-[3px] bg-[#1565c0] align-middle mr-2" />greater observed flow</span><span><i className="inline-block w-8 h-[2px] bg-[#b9c7d5] align-middle mr-2" />other current link</span><span><i className="inline-block w-8 border-t-2 border-dashed border-[#b9c7d5] align-middle mr-2" />historically observed link</span></div>
     </div>
-  );
-};
+  </section>
+
+  <section className="grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Stability is not assumed</p><h2 className="font-serif text-4xl md:text-5xl text-ink leading-tight">A broad network can still be a moving one.</h2></div><div className="space-y-8"><p className="text-xl font-light leading-relaxed text-body">The typical observed pairing is active for 5.04 years. Average persistence is 35.99%, while median persistence is 21.43%. The network records 34,534 entries and 31,420 exits over the study period.</p><p className="text-lg font-serif leading-relaxed text-ink border-l-4 border-[#e6a817] pl-6">A relationship observed in history is evidence of prior connection — not evidence that it is active, available, or guaranteed in a future shock year.</p></div></section>
+  <section className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line"><div className="bg-paper p-8"><p className="text-[10px] uppercase tracking-[.16em] font-semibold text-muted">Average active years</p><p className="mt-5 font-serif text-5xl text-ink">5.04</p></div><div className="bg-paper p-8"><p className="text-[10px] uppercase tracking-[.16em] font-semibold text-muted">Average persistence</p><p className="mt-5 font-serif text-5xl text-ink">35.99%</p></div><div className="bg-paper p-8"><p className="text-[10px] uppercase tracking-[.16em] font-semibold text-muted">Median persistence</p><p className="mt-5 font-serif text-5xl text-ink">21.43%</p></div></section>
+
+  <section className="bg-ink text-white p-8 md:p-14"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#8fb8e8] mb-5">What this does — and does not — tell us</p><div className="grid grid-cols-1 lg:grid-cols-2 gap-12"><h2 className="font-serif text-3xl md:text-4xl leading-tight">Supplier count is not resilience.</h2><div className="space-y-5 text-lg font-light leading-relaxed text-gray-300"><p>Average supplier count is 10.98, the median is 9, and the maximum observed is 79. These describe the breadth of observed supplier relationships.</p><p>They do not create a threshold, score, or guarantee. Supplier count is distinct from supplier shares, concentration, shock loss, and the later modeled replacement outcome.</p></div></div></section>
+
+  <section className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-line pt-14"><div><h2 className="font-serif text-3xl text-ink mb-5">Why history enters the model</h2><p className="text-body font-light leading-relaxed">FOODSHIELD distinguishes suppliers active in the shock year, qualifying historical suppliers absent in that year, and eligible new origins. The distinction preserves the difference between an observed current link and a prior relationship.</p></div><div className="space-y-4 text-sm text-body"><div className="border-l-2 border-[#0e9f6a] pl-5"><strong className="text-ink">Tier 1 — Current suppliers</strong><br/>Active in the shock year.</div><div className="border-l-2 border-[#2bbf8a] pl-5"><strong className="text-ink">Tier 2 — Historical suppliers</strong><br/>Qualifying prior bilateral relationships absent in the shock year.</div><div className="border-l-2 border-[#2a7de1] pl-5"><strong className="text-ink">Tier 3 — New origins</strong><br/>Eligible origins without a qualifying prior bilateral relationship.</div></div></section>
+  <section className="text-center py-16 border-y border-line"><p className="text-[10px] font-semibold uppercase tracking-[.2em] text-muted mb-5">Network quantity</p><div className="font-serif text-5xl md:text-7xl text-ink">5,124,398,255</div><p className="mt-3 text-xs font-semibold uppercase tracking-[.16em] text-body">Tonnes across the Step 7B analytical network</p><p className="mt-6 max-w-2xl mx-auto text-sm font-light leading-relaxed text-muted">Across Wheat, Rice, Maize, Palm Oil, Sugar, and Sunflower Oil; reconciled to Step 6A bilateral quantity after excluding self-trade and zero/null flows.</p></section>
+  <section className="py-24 text-center bg-wash border-t border-line"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#e23b2a] mb-6">Next: the counterfactual</p><h2 className="max-w-3xl mx-auto font-serif text-4xl md:text-5xl leading-tight text-ink">The network maps relationships. The next chapter asks what remains when the dominant supplier is removed.</h2><p className="mt-7 max-w-2xl mx-auto text-body font-light">This is a modeled supplier-shock experiment, not a prediction or guarantee about future trade relationships.</p><Link to="/shock" className="inline-flex items-center justify-center mt-12 px-12 py-5 bg-ink text-white text-sm font-semibold tracking-widest uppercase hover:bg-[#1a365d] transition-colors">Simulate the shock →</Link></section>
+</div>;

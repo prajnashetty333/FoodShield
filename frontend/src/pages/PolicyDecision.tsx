@@ -1,161 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { fetchPolicy, fetchCountryOptions, fetchCountryAnalysis } from '../services/api';
-import { PolicyResponse, CountryOptions, CountryAnalysisResponse } from '../types';
+import { Link } from 'react-router-dom';
+import { fetchPolicy } from '../services/api';
+import { PolicyResponse } from '../types';
 import { ProfileBadge } from '../components/ProfileBadge';
+
+const profiles: Record<string, { pathway: string; description: string; question: string; share: string; color: string }> = {
+  A: { pathway: 'Current suppliers', description: 'Lost supply is modeled as replaceable through suppliers already active in the shock year.', question: 'How concentrated is the remaining current supplier network?', share: '87.04%', color: '#0e9f6a' },
+  B: { pathway: 'Historical suppliers', description: 'The modeled pathway needs qualifying suppliers observed in prior years, but absent in the shock year.', question: 'Could prior supplier relationships be re-examined in a real disruption?', share: '4.00%', color: '#2bbf8a' },
+  C: { pathway: 'New origins', description: 'The modeled pathway requires eligible origins without a qualifying prior bilateral relationship.', question: 'What would need investigation before a new origin could be used?', share: '8.55%', color: '#2a7de1' },
+  D: { pathway: 'Structurally constrained', description: 'The modeled replacement pathways remain insufficient under the historical export-expansion capacity proxy.', question: 'Which constraints should be investigated beyond the modeled trade pathway?', share: '0.41%', color: '#e23b2a' },
+};
 
 export const PolicyDecision = () => {
   const [data, setData] = useState<PolicyResponse | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => { fetchPolicy().then(setData).catch(err => setError(err.message)); }, []);
+  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 text-[#e23b2a]">{error}</div>;
+  if (!data) return <div className="text-muted animate-pulse">Loading decision framework…</div>;
 
-  const [options, setOptions] = useState<CountryOptions | null>(null);
-  const [country, setCountry] = useState<string>('');
-  const [commodity, setCommodity] = useState<string>('');
-  const [year, setYear] = useState<number>(0);
-  
-  const [analysisData, setAnalysisData] = useState<CountryAnalysisResponse | null>(null);
-  const [analysisLoading, setAnalysisLoading] = useState(false);
+  return <div className="space-y-28 md:space-y-40 max-w-6xl mx-auto">
+    <header className="pt-2 pb-16 border-b border-line"><p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[.2em] mb-6">07 — The Decision</p><h1 className="font-serif text-5xl md:text-7xl leading-[.95] text-ink uppercase">Not every shock needs the same response.</h1><p className="mt-8 max-w-4xl text-xl md:text-2xl font-light leading-relaxed text-body">FOODSHIELD groups modeled supplier-shock scenarios by the pathway through which lost import supply can be replaced.</p><p className="mt-8 max-w-3xl text-base font-light leading-relaxed text-muted">The profiles do not prescribe policy or predict outcomes. They organize the questions a decision-maker may want to investigate after a modeled supplier shock.</p></header>
 
-  useEffect(() => {
-    fetchPolicy()
-      .then(setData)
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-      
-    fetchCountryOptions().then(res => {
-      setOptions(res);
-      if (res.countries.length > 0) setCountry(res.countries[0]);
-      if (res.commodities.length > 0) setCommodity(res.commodities[0]);
-      if (res.years.length > 0) setYear(res.years[res.years.length - 1]);
-    });
-  }, []);
+    <section className="grid grid-cols-1 lg:grid-cols-[.75fr_1.25fr] gap-12 lg:gap-20 items-end"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Primary analysis</p><div className="font-serif text-6xl md:text-7xl text-ink">10,953</div><h2 className="mt-3 font-serif text-3xl md:text-4xl text-ink">modeled scenarios</h2></div><p className="border-l-2 border-[#1565c0] pl-6 text-lg font-light leading-relaxed text-body">Share of primary Rank‑1 capacity-valid scenarios (2011–2023). These are classifications of modeled replacement pathways after a dominant supplier shock — not country scores.</p></section>
 
-  useEffect(() => {
-    if (!country || !commodity || !year) return;
-    setAnalysisLoading(true);
-    fetchCountryAnalysis(country, commodity, year)
-      .then(setAnalysisData)
-      .catch(() => setAnalysisData(null))
-      .finally(() => setAnalysisLoading(false));
-  }, [country, commodity, year]);
+    <section><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">The four pathways</p><h2 className="font-serif text-3xl md:text-4xl text-ink mb-10">The model’s result becomes a starting point for investigation.</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-line border border-line">{data.framework.map(item => { const profile = profiles[item.profile]; if (!profile) return null; return <article key={item.profile} className="bg-paper p-7 md:p-9"><div className="flex justify-between gap-6 items-start"><ProfileBadge profile={item.profile} showLabel className="text-sm px-3 py-2"/><span className="font-serif text-4xl" style={{ color: profile.color }}>{profile.share}</span></div><p className="mt-5 text-[10px] uppercase tracking-[.16em] font-semibold text-muted">{profile.pathway}</p><p className="mt-4 text-lg font-light leading-relaxed text-body">{profile.description}</p><div className="mt-7 pt-6 border-t border-line"><p className="text-[10px] uppercase tracking-[.16em] font-semibold text-muted">Decision question</p><p className="mt-2 font-serif text-xl text-ink">{profile.question}</p></div><div className="mt-6"><p className="text-[10px] uppercase tracking-[.16em] font-semibold text-muted">Potential investigation areas</p><p className="mt-2 text-sm font-light leading-relaxed text-body">{item.directions.join(' · ')}</p></div></article>; })}</div><p className="mt-5 text-xs font-light text-muted">Profile shares: Current Suppliers 87.04% · Historical Suppliers 4.00% · New Origins 8.55% · Structurally Constrained 0.41%.</p></section>
 
-  if (loading || !options) return <div className="text-muted animate-pulse">Loading policy framework...</div>;
-  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm"><p className="text-[#e23b2a] font-light text-lg">Error: {error}</p></div>;
-  if (!data) return <div className="text-muted">No data available</div>;
+    <section><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-5">Decision matrix</p><h2 className="font-serif text-3xl md:text-4xl text-ink mb-10">From a modeled pathway to a focused question.</h2><div className="overflow-x-auto border border-line"><table className="w-full min-w-[900px] text-left border-collapse"><thead className="bg-ink text-white"><tr className="text-[10px] uppercase tracking-[.16em]"><th className="p-5">Profile</th><th className="p-5">What the model shows</th><th className="p-5">Decision question</th><th className="p-5">Investigation area</th></tr></thead><tbody>{data.framework.map(item => { const profile = profiles[item.profile]; if (!profile) return null; return <tr key={item.profile} className="border-t border-line align-top"><td className="p-5"><ProfileBadge profile={item.profile} showLabel /></td><td className="p-5 text-sm font-light leading-relaxed text-body">{profile.description}</td><td className="p-5 text-sm font-serif leading-relaxed text-ink">{profile.question}</td><td className="p-5 text-sm font-light leading-relaxed text-body">{item.directions.join(' · ')}</td></tr>; })}</tbody></table></div></section>
 
-  return (
-    <div className="space-y-16 max-w-5xl">
-      <header className="border-b border-line pb-12">
-        <p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-4">07 &mdash; The Decision</p>
-        
-        <div className="mb-8 p-6 bg-[#1565c0]/5 border-l-4 border-[#1565c0]">
-          <div className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-2">RQ 6 &mdash; Persistent Constraints</div>
-          <h2 className="text-2xl font-serif text-ink mb-0">Which country&ndash;commodity systems repeatedly experience difficult replacement pathways?</h2>
-        </div>
+    <section className="bg-ink text-white p-8 md:p-14"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#8fb8e8] mb-5">What FOODSHIELD does not decide</p><div className="grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-12"><h2 className="font-serif text-3xl md:text-4xl leading-tight">A modeled pathway is not a policy instruction.</h2><div className="space-y-5 text-lg font-light leading-relaxed text-gray-300"><p>FOODSHIELD does not determine prices, logistics, contracts, trade policy, domestic production, storage, transport, geopolitics, or whether a supplier will actually trade during a crisis.</p><p>It does not forecast food security, prove causality, or tell decision-makers what they should do. It is decision support: a structured way to identify which questions may matter after a defined modeled shock.</p><p className="text-sm text-gray-400">{data.disclaimer}</p></div></div></section>
 
-        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
-          Policy & Decision Framework
-        </h1>
-        <p className="text-body text-xl font-light mb-8 max-w-3xl">
-          Decision-support implications of the modeled trade-replacement framework. Select a country and commodity to see its targeted policy pathway based on its resilience profile.
-        </p>
-
-        <div className="flex flex-wrap items-end gap-x-12 gap-y-6 max-w-4xl mb-8">
-          <div className="flex-1 min-w-[200px]">
-            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHO ARE WE TESTING?</label>
-            <select
-              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
-              value={country} onChange={(e) => setCountry(e.target.value)}
-            >
-              {options.countries.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </div>
-          
-          <div className="flex-1 min-w-[200px]">
-            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHAT FOOD?</label>
-            <select
-              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
-              value={commodity} onChange={(e) => setCommodity(e.target.value)}
-            >
-              {options.commodities.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </div>
-
-          <div className="w-28">
-            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">YEAR</label>
-            <select
-              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
-              value={year} onChange={(e) => setYear(Number(e.target.value))}
-            >
-              {options.years.map(y => <option key={y} value={y}>{y}</option>)}
-            </select>
-          </div>
-        </div>
-
-        <div className="bg-wash border-l-4 border-l-[#e6a817] p-6 text-body text-sm leading-relaxed">
-          <strong className="text-ink font-semibold">Disclaimer:</strong> {data.disclaimer}
-        </div>
-      </header>
-
-      {analysisLoading ? (
-        <div className="text-muted animate-pulse py-8 text-center">Analyzing selected system...</div>
-      ) : analysisData ? (
-        <div className="mb-16 border border-[#1565c0] bg-white p-8">
-          <h3 className="text-[10px] font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-4">Contextual Policy Recommendation</h3>
-          <p className="text-lg text-body font-light mb-6">
-            For <strong>{analysisData.importer}</strong> importing <strong>{analysisData.commodity}</strong> (in {analysisData.year}), 
-            the modeled resilience profile is <strong>Type {analysisData.resilience_profile}</strong>.
-          </p>
-          
-          {data.framework.filter(rec => rec.profile === analysisData.resilience_profile).map(rec => (
-            <div key={rec.profile} className="flex flex-col md:flex-row gap-8">
-              <div className="md:w-1/3 shrink-0">
-                <ProfileBadge profile={rec.profile} showLabel className="text-sm px-4 py-2 border border-[#1565c0] bg-wash shadow-sm w-full" />
-              </div>
-              <div className="md:w-2/3">
-                <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-6 border-b border-line pb-2">Targeted Strategic Directions</h3>
-                <ul className="space-y-6">
-                  {rec.directions.map((dir, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-[#1565c0] mr-4 mt-1 font-serif text-lg">—</span>
-                      <span className="text-body text-lg font-light leading-relaxed font-serif">{dir}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="mb-16 py-8 border border-line bg-wash text-center text-muted">
-          No validated FOODSHIELD observation for this specific country &times; commodity &times; year combination. Please select another system.
-        </div>
-      )}
-
-      <div className="pt-8 border-t border-line">
-        <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-12">All Profile Frameworks</h3>
-        <div className="grid grid-cols-1 gap-12">
-          {data.framework.map(rec => (
-            <div key={rec.profile} className={`flex flex-col md:flex-row gap-8 pb-12 border-b border-line last:border-0 ${analysisData?.resilience_profile === rec.profile ? 'opacity-50 grayscale' : ''}`}>
-              <div className="md:w-1/3 shrink-0">
-                <ProfileBadge profile={rec.profile} showLabel className="text-sm px-4 py-2 border border-line bg-wash shadow-sm w-full" />
-              </div>
-              
-              <div className="md:w-2/3">
-                <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-6 border-b border-line pb-2">Strategic Directions</h3>
-                <ul className="space-y-6">
-                  {rec.directions.map((dir, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-muted mr-4 mt-1 font-serif text-lg">—</span>
-                      <span className="text-body text-lg font-light leading-relaxed font-serif">{dir}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    <section className="py-24 text-center bg-wash border-t border-line"><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#1565c0] mb-6">The takeaway</p><h2 className="font-serif text-4xl md:text-6xl text-ink uppercase">Resilience is not one number.</h2><p className="mt-8 max-w-3xl mx-auto text-xl font-light leading-relaxed text-body">It highlights the pathways for replacing disrupted suppliers and helps formulate structured scenarios and decision questions.</p><Link to="/methodology" className="inline-flex mt-12 px-12 py-5 bg-ink text-white text-sm font-semibold uppercase tracking-widest hover:bg-[#1a365d] transition-colors">08 — The Methodology →</Link></section>
+  </div>;
 };

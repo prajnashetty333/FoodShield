@@ -8,16 +8,16 @@ interface ProfileBadgeProps {
 }
 
 const colorMap: Record<string, string> = {
-  'A': 'bg-[#0e9f6a]/10 text-[#0e9f6a] border-[#0e9f6a]/30',
-  'B': 'bg-[#2bbf8a]/10 text-[#2bbf8a] border-[#2bbf8a]/30',
-  'C': 'bg-[#2a7de1]/10 text-[#2a7de1] border-[#2a7de1]/30',
-  'D': 'bg-[#e23b2a]/10 text-[#e23b2a] border-[#e23b2a]/30',
+  'A': 'bg-[#935073]/10 text-[#502D55] border-[#935073]/30',
+  'B': 'bg-[#935073]/10 text-[#502D55] border-[#935073]/30',
+  'C': 'bg-[#F6DBC0] text-[#502D55] border-[#935073]/30',
+  'D': 'bg-[#935073]/20 text-[#502D55] border-[#935073]/50',
 };
 
 const labelMap: Record<string, string> = {
-  'A': 'Existing-network resilient',
-  'B': 'Historically recoverable',
-  'C': 'New-origin dependent',
+  'A': 'Current suppliers',
+  'B': 'Historical suppliers',
+  'C': 'New origins',
   'D': 'Structurally constrained',
 };
 

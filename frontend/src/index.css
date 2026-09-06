@@ -2,35 +2,31 @@
 
 @layer base {
   :root {
-    --paper: rgba(10, 37, 64, 0.75);
-    --ink: #ffffff;
-    --body: #e2e8f0;
-    --muted: #cbd5e1;
-    --line: rgba(255, 255, 255, 0.25);
-    --wash: rgba(255, 255, 255, 0.1);
-    --blue: #60a5fa;
-    --current: #34d399;
-    --hist: #4ade80;
-    --prev: #fbbf24;
-    --fresh: #60a5fa;
-    --gap: #f87171;
+    --paper: #F8F4E9;
+    --ink: #502D55;
+    --body: #502D55;
+    --muted: #7A5B72;
+    --line: rgba(80, 45, 85, 0.20);
+    --wash: #F6DBC0;
+    --blue: #935073;
+    --current: #935073;
+    --hist: #935073;
+    --prev: #935073;
+    --fresh: #935073;
+    --gap: #935073;
   }
 
   body {
-    background-color: #0a2540;
-    background-image: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.85)), url('./assets/image.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    background-color: var(--paper);
     color: var(--body);
     font-family: "Source Sans 3", system-ui, sans-serif;
-    @apply antialiased selection:bg-blue-600 selection:text-white;
+    @apply antialiased selection:bg-[#935073] selection:text-[#F8F4E9];
   }
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--ink);
     font-family: "Source Serif 4", Georgia, serif;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-shadow: none;
   }
 
   :focus-visible {
@@ -39,6 +35,11 @@
   }
 }
 
+/* Legacy page accents are mapped into the locked FOODSHIELD palette. */
+[class*="text-[#1565c0]"], [class*="text-[#2a7de1]"], [class*="text-[#60a5fa]"], [class*="text-[#e23b2a]"], [class*="text-[#e6a817]"], [class*="text-[#0e9f6a]"], [class*="text-[#2bbf8a]"] { color: #935073 !important; }
+[class*="bg-[#1565c0]"], [class*="bg-[#2a7de1]"], [class*="bg-[#60a5fa]"], [class*="bg-[#e23b2a]"], [class*="bg-[#e6a817]"], [class*="bg-[#0e9f6a]"], [class*="bg-[#2bbf8a]"] { background-color: #935073 !important; }
+[class*="border-[#1565c0]"], [class*="border-[#2a7de1]"], [class*="border-[#60a5fa]"], [class*="border-[#e23b2a]"], [class*="border-[#e6a817]"], [class*="border-[#0e9f6a]"], [class*="border-[#2bbf8a]"] { border-color: #935073 !important; }
+
 @layer utilities {
   .bg-paper { background-color: var(--paper); }
   .bg-wash { background-color: var(--wash); }
@@ -46,6 +47,11 @@
   .text-body { color: var(--body); }
   .text-muted { color: var(--muted); }
   .border-line { border-color: var(--line); }
+  .bg-ink { background-color: #502D55; }
+  .bg-white { background-color: #F8F4E9; }
+  .text-white { color: #F8F4E9; }
+  .text-gray-300, .text-gray-400 { color: #F6DBC0; }
+  .bg-gray-700 { background-color: rgba(248, 244, 233, 0.25); }
   
   .animate-grid-pan {
     animation: grid-pan 60s linear infinite;
