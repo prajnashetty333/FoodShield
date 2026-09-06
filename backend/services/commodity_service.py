@@ -1,5 +1,5 @@
-from backend.services.data_loader import data_loader
-from backend.schemas.commodity import CommodityAnalysisResponse, ProfileDistribution
+from services.data_loader import data_loader
+from schemas.commodity import CommodityAnalysisResponse, ProfileDistribution
 from fastapi import HTTPException
 import math
 
