@@ -1,61 +1,69 @@
 import { NavLink } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Globe, 
-  Package, 
-  Zap, 
-  GitMerge, 
-  SlidersHorizontal, 
-  FileText, 
-  BookOpen 
-} from 'lucide-react';
 
 const navItems = [
-  { path: '/', label: '01 Executive Overview', icon: LayoutDashboard },
-  { path: '/country', label: '02 Country Explorer', icon: Globe },
-  { path: '/commodity', label: '03 Commodity Explorer', icon: Package },
-  { path: '/shock', label: '04 Supplier Shock', icon: Zap },
-  { path: '/replacement', label: '05 Replacement Pathway', icon: GitMerge },
-  { path: '/sensitivity', label: '06 Sensitivity', icon: SlidersHorizontal },
-  { path: '/policy', label: '07 Policy & Decision', icon: FileText },
-  { path: '/methodology', label: '08 Methodology', icon: BookOpen },
+  { path: '/', number: '01', label: 'THE QUESTION' },
+  { path: '/country', number: '02', label: 'THE EXPOSURE' },
+  { path: '/network', number: '03', label: 'THE NETWORK' },
+  { path: '/shock', number: '04', label: 'THE SHOCK' },
+  { path: '/replacement', number: '05', label: 'THE RECOVERY' },
+  { path: '/sensitivity', number: '06', label: 'THE ROBUSTNESS' },
+  { path: '/policy', number: '07', label: 'THE DECISION' },
+  { path: '/methodology', number: '08', label: 'THE METHOD' },
 ];
 
 export const Sidebar = () => {
   return (
-    <div className="w-64 bg-[#fffdf8] border-r border-slate-800 h-screen sticky top-0 flex flex-col">
-      <div className="p-7 border-b border-slate-800">
-        <h1 className="text-xl font-semibold text-slate-100 tracking-wide">FOODSHIELD</h1>
-        <p className="text-[10px] text-slate-500 mt-2 uppercase tracking-[0.2em] font-semibold">Research Intelligence</p>
+    <div className="w-[320px] bg-paper border-r border-line h-screen sticky top-0 flex flex-col shrink-0">
+      <div className="p-10 border-b border-line">
+        <h1 className="text-2xl font-normal text-ink tracking-tight font-serif mb-1">FOODSHIELD</h1>
+        <p className="text-[10px] text-muted uppercase tracking-[0.2em] font-medium">Food Trade Resilience</p>
       </div>
       
-      <nav className="flex-1 px-4 py-5 space-y-1">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-[#f0f6fb] text-[#1565c0] border border-[#b8d5ef]'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-[#f0f6fb]'
-                }`
-              }
-            >
-              <Icon className="w-4 h-4" />
-              {item.label}
-            </NavLink>
-          );
-        })}
+      <nav className="flex-1 px-10 py-12 space-y-6 overflow-y-auto">
+        <div className="text-[10px] font-semibold text-muted mb-8 uppercase tracking-[0.2em]">Research Journey</div>
+        
+        <div className="relative">
+          {/* Vertical connection line */}
+          <div className="absolute left-[11px] top-4 bottom-4 w-px bg-line -z-10" />
+          
+          <div className="space-y-8">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-start gap-5 group transition-all duration-300 ${
+                    isActive ? 'opacity-100' : 'opacity-60 hover:opacity-100'
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <div className={`mt-1 flex items-center justify-center w-6 h-6 rounded-full border-2 bg-paper transition-colors duration-300 ${
+                      isActive ? 'border-[#1565c0] shadow-[0_0_0_2px_rgba(21,101,192,0.2)]' : 'border-line group-hover:border-muted'
+                    }`}>
+                      {isActive && <div className="w-2 h-2 rounded-full bg-[#1565c0]" />}
+                    </div>
+                    <div>
+                      <div className={`text-xs font-serif italic mb-0.5 transition-colors ${
+                        isActive ? 'text-[#1565c0]' : 'text-muted'
+                      }`}>
+                        {item.number}
+                      </div>
+                      <div className={`text-sm font-semibold tracking-widest uppercase transition-colors ${
+                        isActive ? 'text-ink' : 'text-body'
+                      }`}>
+                        {item.label}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </div>
+        </div>
       </nav>
       
-      <div className="p-5 border-t border-slate-800">
-        <div className="text-[10px] text-slate-500 leading-tight">
-          FOODSHIELD modeled trade-replacement framework. Not a real-world food security guarantee.
-        </div>
-      </div>
     </div>
   );
 };

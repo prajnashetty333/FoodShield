@@ -34,7 +34,7 @@ export const SupplierShock = () => {
     });
   }, []);
 
-  useEffect(() => {
+  const handleRunShock = () => {
     if (!country || !commodity || !year || !rank) return;
     
     setLoading(true);
@@ -50,80 +50,89 @@ export const SupplierShock = () => {
         }
       })
       .finally(() => setLoading(false));
-  }, [country, commodity, year, rank]);
+  };
 
   return (
-    <div className="space-y-8">
-      <header className="border-b border-slate-800 pb-6">
-        <h1 className="text-3xl font-light text-slate-100 mb-2">Supplier Shock</h1>
-        <p className="text-slate-400 font-light">
-          Simulate the complete loss of supply from a major trading partner.
-          Rank 1, 2, and 3 are independent single-supplier shocks — not cumulative.
+    <div className="space-y-16">
+      <header className="border-b border-line pb-12">
+        <p className="text-xs font-semibold text-[#e23b2a] uppercase tracking-[0.2em] mb-4">04 &mdash; The Shock</p>
+        <div className="mb-8 p-6 bg-[#e23b2a]/5 border-l-4 border-[#e23b2a]">
+          <div className="text-xs font-semibold text-[#e23b2a] uppercase tracking-[0.2em] mb-2">RQ 2 &mdash; Shock Severity</div>
+          <h2 className="text-2xl font-serif text-ink mb-0">How large is the modeled loss when the largest supplier disappears?</h2>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
+          What happens if the dominant supplier disappears?
+        </h1>
+        <p className="text-body text-xl font-light mb-8 max-w-3xl">
+          Simulate the complete loss of supply from a major trading partner to measure the immediate impact on the import network.
         </p>
+
+        <div className="flex flex-wrap items-end gap-x-12 gap-y-6 max-w-5xl">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHO ARE WE TESTING?</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={country} onChange={(e) => setCountry(e.target.value)}
+            >
+              {options?.countries.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHAT FOOD?</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={commodity} onChange={(e) => setCommodity(e.target.value)}
+            >
+              {options?.commodities.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+
+          <div className="w-28">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">YEAR</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={year} onChange={(e) => setYear(Number(e.target.value))}
+            >
+              {options?.years.map(y => <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+          
+          <div className="w-48">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">DISRUPTION LEVEL</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={rank} onChange={(e) => setRank(Number(e.target.value))}
+            >
+              <option value={1}>Rank 1 Supplier</option>
+              <option value={2}>Rank 2 Supplier</option>
+              <option value={3}>Rank 3 Supplier</option>
+            </select>
+          </div>
+          
+          <button 
+            onClick={handleRunShock}
+            className="bg-[#1565c0] text-white px-8 py-3 text-sm font-semibold uppercase tracking-widest hover:bg-[#0d47a1] transition-colors"
+          >
+            Run Shock Scenario
+          </button>
+        </div>
       </header>
 
-      <div className="bg-amber-950/20 border border-amber-900/30 p-3 rounded text-amber-400/80 text-sm">
-        Each rank represents an independent, isolated shock scenario. Selecting Rank 2 removes the Rank-2 supplier in isolation — it does NOT remove Rank 1 and Rank 2 simultaneously.
-      </div>
-
-      <div className="flex flex-wrap gap-4 bg-slate-900 border border-slate-800 p-4 rounded-lg">
-        <div className="flex-1 min-w-[150px]">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Country</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={country} onChange={(e) => setCountry(e.target.value)}
-          >
-            {options?.countries.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
-        
-        <div className="flex-1 min-w-[150px]">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Commodity</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={commodity} onChange={(e) => setCommodity(e.target.value)}
-          >
-            {options?.commodities.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
-
-        <div className="w-28">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Year</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={year} onChange={(e) => setYear(Number(e.target.value))}
-          >
-            {options?.years.map(y => <option key={y} value={y}>{y}</option>)}
-          </select>
-        </div>
-        
-        <div className="w-32">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Shock Rank</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={rank} onChange={(e) => setRank(Number(e.target.value))}
-          >
-            <option value={1}>Rank 1</option>
-            <option value={2}>Rank 2</option>
-            <option value={3}>Rank 3</option>
-          </select>
-        </div>
-      </div>
-
-      {loading && <div className="text-slate-400 py-12 text-center animate-pulse">Running shock scenario...</div>}
+      {loading && <div className="text-muted py-12 text-center animate-pulse">Running shock scenario...</div>}
       
       {error && (
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-lg text-center">
-          <p className="text-slate-400 font-light text-lg">{error}</p>
+        <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm text-center">
+          <p className="text-[#e23b2a] font-light text-lg">{error}</p>
         </div>
       )}
 
       {data && !loading && (
-        <div className="space-y-8">
-          <div className="bg-red-950/20 border border-red-900/30 p-6 rounded-lg text-center">
-            <h2 className="text-xs font-medium text-red-400 uppercase tracking-widest mb-3">Simulated Supply Shock</h2>
-            <div className="text-3xl font-light text-slate-100 mb-2">Total Loss of {data.shocked_supplier}</div>
-            <p className="text-slate-400 text-sm">
+        <div className="space-y-12">
+          <div className="border-l-4 border-[#e23b2a] pl-8 py-2">
+            <h2 className="text-[10px] font-semibold text-muted uppercase tracking-widest mb-3">Simulated Supply Shock</h2>
+            <div className="text-4xl md:text-5xl font-normal text-ink mb-2 font-serif">Total Loss of {data.shocked_supplier}</div>
+            <p className="text-body text-lg font-light">
               Rank {data.supplier_rank} supplier for {data.commodity} to {data.importer} in {data.year}
             </p>
           </div>
@@ -138,7 +147,7 @@ export const SupplierShock = () => {
               title="Shock Loss Share"
               value={`${fmt(data.shock_loss_share)}%`}
               subtitle="% of total baseline imports removed"
-              className="border-red-900/30 bg-red-950/10"
+              className="border-[#e23b2a] bg-[#e23b2a]/5"
             />
             <KPICard
               title="Remaining Import Share"
@@ -147,25 +156,25 @@ export const SupplierShock = () => {
             />
           </div>
           
-          <div className="bg-slate-900 border border-slate-800 p-8 rounded-lg">
-            <h3 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-6">Import Share Composition Post-Shock</h3>
-            <div className="w-full h-10 flex rounded overflow-hidden">
+          <div className="bg-wash border border-line p-8 md:p-12 rounded-sm">
+            <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-8">Import Share Composition Post-Shock</h3>
+            <div className="w-full h-16 flex overflow-hidden border border-line">
               <div
                 style={{ width: `${data.remaining_import_share ?? 0}%` }}
-                className="bg-blue-600/80 h-full flex items-center justify-center text-xs font-medium text-white"
+                className="bg-[#1565c0] h-full flex items-center justify-center text-sm font-semibold text-white tracking-wide"
               >
                 {(data.remaining_import_share ?? 0) > 8 ? `${fmt(data.remaining_import_share)}% Remaining` : ''}
               </div>
               <div
                 style={{ width: `${data.shock_loss_share ?? 0}%` }}
-                className="bg-red-500/80 h-full flex items-center justify-center text-xs font-medium text-white"
+                className="bg-[#e23b2a] h-full flex items-center justify-center text-sm font-semibold text-white tracking-wide"
               >
                 {(data.shock_loss_share ?? 0) > 8 ? `${fmt(data.shock_loss_share)}% Lost` : ''}
               </div>
             </div>
-            <div className="flex gap-6 mt-3 text-xs text-slate-500">
-              <span className="flex items-center gap-2"><span className="w-3 h-3 bg-blue-600/80 rounded-sm inline-block"></span>Remaining supply from unaffected partners</span>
-              <span className="flex items-center gap-2"><span className="w-3 h-3 bg-red-500/80 rounded-sm inline-block"></span>Lost supply (shocked supplier removed)</span>
+            <div className="flex gap-8 mt-6 text-sm text-body font-light">
+              <span className="flex items-center gap-3"><span className="w-4 h-4 bg-[#1565c0] inline-block"></span>Remaining supply from unaffected partners</span>
+              <span className="flex items-center gap-3"><span className="w-4 h-4 bg-[#e23b2a] inline-block"></span>Lost supply (shocked supplier removed)</span>
             </div>
           </div>
         </div>

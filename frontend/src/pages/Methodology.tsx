@@ -14,37 +14,36 @@ export const Methodology = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="text-slate-400">Loading methodology limitations...</div>;
-  if (error) return <div className="text-red-400">Error: {error}</div>;
-  if (!data) return <div className="text-slate-400">No data available</div>;
+  if (loading) return <div className="text-muted animate-pulse">Loading methodology limitations...</div>;
+  if (error) return <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm"><p className="text-[#e23b2a] font-light text-lg">Error: {error}</p></div>;
+  if (!data) return <div className="text-muted">No data available</div>;
 
   return (
-    <div className="space-y-12">
-      <header className="border-b border-slate-800 pb-6">
-        <h1 className="text-3xl font-light text-slate-100 mb-2">Methodology Limitations</h1>
-        <p className="text-slate-400 font-light">
+    <div className="space-y-16 max-w-4xl">
+      <header className="border-b border-line pb-12">
+        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
+          What we don't know
+        </h1>
+        <p className="text-body text-xl font-light mb-8 max-w-3xl">
           Factors explicitly excluded from the FOODSHIELD modeling framework.
         </p>
+
+        <div className="bg-wash border-l-4 border-l-[#e23b2a] p-6 text-body text-sm leading-relaxed">
+          <strong className="text-ink font-semibold">Core Disclaimer:</strong> {data.disclaimer}
+        </div>
       </header>
 
-      <div className="bg-slate-900 border border-slate-800 p-8 rounded-lg">
-        <h2 className="text-xl font-medium text-slate-200 mb-6">What FOODSHIELD Does Not Model</h2>
+      <div className="bg-paper">
+        <h2 className="text-sm font-semibold text-ink uppercase tracking-widest mb-8 border-b border-line pb-2">What FOODSHIELD Does Not Model</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
           {data.limitations.map((limitation, idx) => (
-            <div key={idx} className="flex items-center space-x-3 p-3 rounded bg-slate-950 border border-slate-800/50">
-              <span className="text-red-500 font-bold">×</span>
-              <span className="text-slate-300 font-light">{limitation}</span>
+            <div key={idx} className="flex items-start">
+              <span className="text-[#e23b2a] font-serif text-lg mr-4 mt-0.5">—</span>
+              <span className="text-body font-light text-lg leading-relaxed font-serif">{limitation}</span>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="bg-blue-950/20 border border-blue-900/30 p-8 rounded-lg">
-        <h2 className="text-xl font-medium text-blue-400 mb-4">Core Disclaimer</h2>
-        <p className="text-slate-300 text-lg font-light leading-relaxed">
-          {data.disclaimer}
-        </p>
       </div>
     </div>
   );

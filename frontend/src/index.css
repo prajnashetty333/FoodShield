@@ -2,30 +2,35 @@
 
 @layer base {
   :root {
-    --paper: #fffdf8;
-    --ink: #0a2540;
-    --body: #24364a;
-    --muted: #5a6b7d;
-    --line: #d7e2ec;
-    --wash: #f0f6fb;
-    --blue: #1565c0;
-    --current: #0e9f6a;
-    --hist: #2bbf8a;
-    --prev: #e6a817;
-    --fresh: #2a7de1;
-    --gap: #e23b2a;
+    --paper: rgba(10, 37, 64, 0.75);
+    --ink: #ffffff;
+    --body: #e2e8f0;
+    --muted: #cbd5e1;
+    --line: rgba(255, 255, 255, 0.25);
+    --wash: rgba(255, 255, 255, 0.1);
+    --blue: #60a5fa;
+    --current: #34d399;
+    --hist: #4ade80;
+    --prev: #fbbf24;
+    --fresh: #60a5fa;
+    --gap: #f87171;
   }
 
   body {
-    background: var(--paper);
+    background-color: #0a2540;
+    background-image: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.85)), url('./assets/image.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
     color: var(--body);
     font-family: "Source Sans 3", system-ui, sans-serif;
     @apply antialiased selection:bg-blue-600 selection:text-white;
   }
 
-  h1, h2 {
+  h1, h2, h3, h4, h5, h6 {
     color: var(--ink);
     font-family: "Source Serif 4", Georgia, serif;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
   :focus-visible {
@@ -35,13 +40,19 @@
 }
 
 @layer utilities {
-  .bg-slate-950 { background-color: var(--paper); }
-  .bg-slate-900 { background-color: #ffffff; }
-  .bg-blue-950\/10, .bg-blue-950\/20 { background-color: var(--wash); }
-  .border-slate-800, .border-slate-800\/50 { border-color: var(--line); }
-  .border-blue-900\/20, .border-blue-900\/30, .border-blue-900\/50 { border-color: #b8d5ef; }
-  .text-slate-100, .text-slate-200 { color: var(--ink); }
-  .text-slate-300 { color: var(--body); }
-  .text-slate-400, .text-slate-500 { color: var(--muted); }
-  .text-blue-400 { color: var(--blue); }
+  .bg-paper { background-color: var(--paper); }
+  .bg-wash { background-color: var(--wash); }
+  .text-ink { color: var(--ink); }
+  .text-body { color: var(--body); }
+  .text-muted { color: var(--muted); }
+  .border-line { border-color: var(--line); }
+  
+  .animate-grid-pan {
+    animation: grid-pan 60s linear infinite;
+  }
+}
+
+@keyframes grid-pan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
 }

@@ -62,72 +62,83 @@ export const ReplacementPathway = () => {
     data.unreplaced_supply != null;
 
   return (
-    <div className="space-y-8">
-      <header className="border-b border-slate-800 pb-6">
-        <h1 className="text-3xl font-light text-slate-100 mb-2">Replacement Pathway</h1>
-        <p className="text-slate-400 font-light">
-          Modeled trade-replacement pathway — how lost import supply is allocated across Tier 1, 2, and 3 supplier capacities.
-        </p>
-      </header>
-
-      <div className="flex flex-wrap gap-4 bg-slate-900 border border-slate-800 p-4 rounded-lg">
-        <div className="flex-1 min-w-[150px]">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Country</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={country} onChange={(e) => setCountry(e.target.value)}
-          >
-            {options?.countries.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
+    <div className="space-y-16">
+      <header className="border-b border-line pb-12">
+        <p className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-4">05 &mdash; The Recovery</p>
         
-        <div className="flex-1 min-w-[150px]">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Commodity</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={commodity} onChange={(e) => setCommodity(e.target.value)}
-          >
-            {options?.commodities.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
-
-        <div className="w-28">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Year</label>
-          <select
-            className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2 outline-none"
-            value={year} onChange={(e) => setYear(Number(e.target.value))}
-          >
-            {options?.years.map(y => <option key={y} value={y}>{y}</option>)}
-          </select>
-        </div>
-        
-        <div className="w-40">
-          <label className="block text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">Shock Rank</label>
-          <div className="w-full bg-slate-950 border border-slate-800 text-slate-200 rounded p-2">
-            Rank 1 (Primary)
+        <div className="flex flex-col md:flex-row gap-6 mb-8">
+          <div className="flex-1 p-6 bg-[#1565c0]/5 border-l-4 border-[#1565c0]">
+            <div className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-2">RQ 3 &mdash; Replacement Pathway</div>
+            <h2 className="text-xl font-serif text-ink mb-0">When a major supplier disappears, where does replacement come from?</h2>
+          </div>
+          <div className="flex-1 p-6 bg-[#1565c0]/5 border-l-4 border-[#1565c0]">
+            <div className="text-xs font-semibold text-[#1565c0] uppercase tracking-[0.2em] mb-2">RQ 4 &mdash; Recovery Pathways</div>
+            <h2 className="text-xl font-serif text-ink mb-0">What proportion of modeled supplier shocks fall into each recovery pathway?</h2>
           </div>
         </div>
-      </div>
 
-      <p className="text-slate-500 text-sm leading-relaxed">
-        Replacement Pathway uses the primary Rank-1 supplier shock. Rank-2 and Rank-3 shocks are evaluated independently on the Supplier Shock page and are not part of the primary replacement pathway analysis.
-      </p>
+        <h1 className="text-4xl md:text-5xl font-normal text-ink mb-6 font-serif">
+          Can existing suppliers absorb the disruption?
+        </h1>
+        <p className="text-body text-xl font-light mb-8 max-w-3xl">
+          Modeled trade-replacement pathway — mapping how lost import supply is allocated across Tier 1, 2, and 3 supplier capacities.
+        </p>
 
-      {loading && <div className="text-slate-400 py-12 text-center animate-pulse">Querying validated replacement dataset...</div>}
+        <div className="flex flex-wrap gap-x-12 gap-y-6 max-w-4xl">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHO ARE WE TESTING?</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={country} onChange={(e) => setCountry(e.target.value)}
+            >
+              {options?.countries.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">WHAT FOOD?</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={commodity} onChange={(e) => setCommodity(e.target.value)}
+            >
+              {options?.commodities.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+
+          <div className="w-28">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">YEAR</label>
+            <select
+              className="w-full bg-paper border-b border-line text-ink text-xl py-2 focus:border-[#1565c0] focus:ring-0 outline-none appearance-none cursor-pointer"
+              value={year} onChange={(e) => setYear(Number(e.target.value))}
+            >
+              {options?.years.map(y => <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+          
+          <div className="w-40">
+            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-widest">SHOCK RANK</label>
+            <div className="w-full bg-paper border-b border-line text-ink text-xl py-2 opacity-70">
+              Rank 1 (Primary)
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {loading && <div className="text-muted py-12 text-center animate-pulse">Querying validated replacement dataset...</div>}
       
       {error && (
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-lg text-center">
-          <p className="text-slate-400 font-light text-lg">{error}</p>
+        <div className="border border-[#e23b2a] bg-[#e23b2a]/5 p-8 rounded-sm text-center">
+          <p className="text-[#e23b2a] font-light text-lg">{error}</p>
         </div>
       )}
 
       {data && !loading && (
-        <div className="space-y-8">
+        <div className="space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <KPICard
               title="Modeled Replacement Rate"
               value={`${fmt(data.replacement_rate)}%`}
-              className={(data.replacement_rate ?? 0) >= 99 ? 'border-green-900/30 bg-green-950/10' : ''}
+              className={(data.replacement_rate ?? 0) >= 99 ? 'border-l-4 border-l-[#0e9f6a]' : ''}
             />
             <KPICard title="Tier 1 Replacement" value={fmtLocale(data.tier1_replacement)} subtitle="Current-year suppliers (tonnes)" />
             <KPICard title="Tier 2 Replacement" value={fmtLocale(data.tier2_replacement)} subtitle="Historical suppliers (tonnes)" />
@@ -135,12 +146,12 @@ export const ReplacementPathway = () => {
           </div>
 
           {canRenderSankey ? (
-            <div className="bg-slate-900 border border-slate-800 p-6 rounded-lg w-full overflow-x-auto">
-              <h3 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-2">
+            <div className="border-t border-line pt-12 w-full overflow-x-auto">
+              <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-2">
                 Modeled replacement of lost import supply
               </h3>
-              <p className="text-slate-500 text-xs mb-6">
-                Source: validated replacement results dataset. Tonnes.
+              <p className="text-muted text-xs mb-8">
+                Source: validated replacement results dataset. Measured in tonnes.
               </p>
               <div className="min-w-[700px]">
                 <Plot
@@ -150,9 +161,9 @@ export const ReplacementPathway = () => {
                     node: {
                       pad: 15,
                       thickness: 30,
-                      line: { color: '#0f172a', width: 0.5 },
+                      line: { color: '#0a2540', width: 0.5 },
                       label: ['Lost Supply', 'Tier 1 — Current suppliers', 'Tier 2 — Historical suppliers', 'Tier 3 — New origins', 'Unreplaced'],
-                      color: ['#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6', '#64748b']
+                      color: ['#0a2540', '#0e9f6a', '#2bbf8a', '#2a7de1', '#e23b2a']
                     },
                     link: {
                       source: [0, 0, 0, 0],
@@ -163,7 +174,7 @@ export const ReplacementPathway = () => {
                         data.tier3_replacement ?? 0,
                         data.unreplaced_supply ?? 0
                       ],
-                      color: ['rgba(59,130,246,0.3)', 'rgba(245,158,11,0.3)', 'rgba(139,92,246,0.3)', 'rgba(100,116,139,0.3)']
+                      color: ['rgba(14,159,106,0.3)', 'rgba(43,191,138,0.3)', 'rgba(42,125,225,0.3)', 'rgba(226,59,42,0.3)']
                     }
                   }]}
                   layout={{
@@ -172,22 +183,30 @@ export const ReplacementPathway = () => {
                     margin: { l: 20, r: 20, t: 10, b: 10 },
                     paper_bgcolor: 'rgba(0,0,0,0)',
                     plot_bgcolor: 'rgba(0,0,0,0)',
-                    font: { color: '#94a3b8', family: 'Inter, sans-serif', size: 12 }
+                    font: { color: '#24364a', family: '"Source Sans 3", system-ui, sans-serif', size: 14 }
                   }}
                   config={{ responsive: true, displayModeBar: false }}
                 />
               </div>
             </div>
           ) : (
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-lg text-center">
-              <p className="text-slate-400">Sankey diagram cannot be rendered: one or more flow values are missing from the validated dataset.</p>
+            <div className="border border-line bg-wash p-8 rounded-sm text-center">
+              <p className="text-muted">Sankey diagram cannot be rendered: one or more flow values are missing from the validated dataset.</p>
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <KPICard title="Unreplaced Supply" value={fmtLocale(data.unreplaced_supply)} subtitle="tonnes — modeled gap after all tiers" />
-            <KPICard title="New-Origin Share" value={`${fmt(data.new_origin_share)}%`} subtitle="Share sourced from Tier 3 new origins" />
-          </div>
+          <section className="bg-wash p-8 rounded-sm border border-line">
+            <h3 className="text-sm font-semibold text-ink uppercase tracking-widest mb-4">What this means</h3>
+            <p className="text-body text-lg font-light leading-relaxed font-serif mb-6">
+              {data.replacement_rate >= 100 
+                ? "The lost supply can be completely absorbed within the modeled historical limits of the existing network, without resulting in unreplaced shortfalls."
+                : `The network cannot fully replace the lost supply. Despite tapping current, historical, and new suppliers, ${fmtLocale(data.unreplaced_supply)} tonnes remain unresolved.`}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[#d7e2ec]">
+              <KPICard title="Unreplaced Supply" value={fmtLocale(data.unreplaced_supply)} subtitle="tonnes — modeled gap after all tiers" className="bg-paper shadow-sm" />
+              <KPICard title="New-Origin Share" value={`${fmt(data.new_origin_share)}%`} subtitle="Share sourced from Tier 3 new origins" className="bg-paper shadow-sm" />
+            </div>
+          </section>
         </div>
       )}
     </div>

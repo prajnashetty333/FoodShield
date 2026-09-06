@@ -8,10 +8,10 @@ interface ProfileBadgeProps {
 }
 
 const colorMap: Record<string, string> = {
-  'A': 'bg-green-500/20 text-green-400 border-green-500/30',
-  'B': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  'C': 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-  'D': 'bg-red-500/20 text-red-400 border-red-500/30',
+  'A': 'bg-[#0e9f6a]/10 text-[#0e9f6a] border-[#0e9f6a]/30',
+  'B': 'bg-[#2bbf8a]/10 text-[#2bbf8a] border-[#2bbf8a]/30',
+  'C': 'bg-[#2a7de1]/10 text-[#2a7de1] border-[#2a7de1]/30',
+  'D': 'bg-[#e23b2a]/10 text-[#e23b2a] border-[#e23b2a]/30',
 };
 
 const labelMap: Record<string, string> = {
@@ -28,7 +28,7 @@ export const ProfileBadge: React.FC<ProfileBadgeProps> = ({ profile, className =
                        profile.startsWith('New-') ? 'C' :
                        profile.startsWith('Structural') ? 'D' : profile;
                        
-  const colors = colorMap[shortProfile] || 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+  const colors = colorMap[shortProfile] || 'bg-wash text-muted border-line';
   const label = labelMap[shortProfile] || profile;
 
   return (

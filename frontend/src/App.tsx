@@ -9,6 +9,7 @@ import { ReplacementPathway } from './pages/ReplacementPathway';
 import { Sensitivity } from './pages/Sensitivity';
 import { PolicyDecision } from './pages/PolicyDecision';
 import { Methodology } from './pages/Methodology';
+import { NetworkStory } from './pages/NetworkStory';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<ExecutiveOverview />} />
           <Route path="country" element={<CountryExplorer />} />
+          <Route path="network" element={<NetworkStory />} />
           <Route path="commodity" element={<CommodityExplorer />} />
           <Route path="shock" element={<SupplierShock />} />
           <Route path="replacement" element={<ReplacementPathway />} />

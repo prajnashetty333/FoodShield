@@ -8,11 +8,15 @@ export default {
     extend: {
       colors: {
         profile: {
-          A: '#22c55e', // green-500
-          B: '#3b82f6', // blue-500
-          C: '#f97316', // orange-500
-          D: '#ef4444', // red-500
+          A: '#0e9f6a', // Current Network
+          B: '#2bbf8a', // Historical Recovery
+          C: '#2a7de1', // New Origin
+          D: '#e23b2a', // Gap / Structural Constraint
         }
+      },
+      fontFamily: {
+        serif: ['"Source Serif 4"', 'Georgia', 'serif'],
+        sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
       }
     },
   },

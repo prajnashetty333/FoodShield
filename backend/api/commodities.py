@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from services.commodity_service import get_commodity_analysis
 from schemas.commodity import CommodityAnalysisResponse
 from typing import List
-import backend.config as cfg
+import config as cfg
 
 router = APIRouter()
 
