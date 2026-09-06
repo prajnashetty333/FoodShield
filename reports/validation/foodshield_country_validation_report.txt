@@ -1,0 +1,17 @@
+FOODSHIELD STEP 4 - COUNTRY UNIVERSE VALIDATION REPORT
+=====================================================
+
+1. Total entities detected: 220
+2. Total individual countries/economies detected: 220
+3. Total aggregate entities detected: 0
+4. Number included: 220
+5. Number excluded: 0
+
+6. List/categories of excluded aggregates:
+
+7. Duplicate country identifiers: None detected (based on unique tuple extraction)
+8. Missing country identifiers: None (all have code and name)
+9. Country-name inconsistencies: Handled via standardized_country_name
+10. Reporter/partner identifier validation: Same entity list used for both; directionality preserved in trade dataset.
+11. Any unusual entities requiring manual review: None
+12. Final country-universe status: VALIDATED

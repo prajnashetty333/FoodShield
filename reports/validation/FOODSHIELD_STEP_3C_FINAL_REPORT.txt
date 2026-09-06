@@ -1,0 +1,13 @@
+FOODSHIELD STEP 3C FINAL REPORT
+
+- Number of final commodities: 6
+- Number of core trade representations: 7
+- Methodology: Strict primary-commodity
+- Processed derivatives: Excluded
+- By-products: Excluded
+- Feed/non-food: Excluded
+- Ambiguous candidates: Excluded
+- Double-counting prevention: Enforced (only primary raw nodes retained)
+- Sugar's retained CPCs: '2351f, '23511.02
+- Sunflower Oil's retained CPC: '21631.01
+- Status: The commodity universe is LOCKED

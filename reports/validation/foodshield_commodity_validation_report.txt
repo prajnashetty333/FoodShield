@@ -1,0 +1,38 @@
+FOODSHIELD COMMODITY VALIDATION REPORT
+
+1. Number of selected commodities: 6
+
+2. Core trade commodities by commodity:
+   - Wheat: Wheat
+   - Rice: Rice
+   - Maize: Maize (corn)
+   - Palm Oil: Palm oil
+   - Sugar: Raw cane or beet sugar (centrifugal only), Cane sugar, non-centrifugal
+   - Sunflower Oil: Sunflower-seed oil, crude
+
+3. Excluded processed commodities: 32
+
+4. Excluded by-products: 10
+
+5. Excluded feed/non-food commodities: 1
+
+6. Ambiguous/review items: 6
+
+7. Double-counting risks: 32 high-risk items excluded.
+
+8. Final methodological decisions: Enforced strict core primary representations.
+
+9. Remaining limitations: Refined sugar exclusion may underrepresent total sugar flows for countries without domestic refineries.
+
+10. Final recommendation:
+   Is the commodity universe ready for country-level analysis? YES.
+
+Commodity | FBS Item | Core Trade Item(s) | CPC | Status | Confidence
+-----------------------------------------------------------------------
+Wheat | Wheat and products | Wheat | '0111 | CORE | HIGH
+Rice | Rice and products | Rice | '0113 | CORE | HIGH
+Maize | Maize and products | Maize (corn) | '0112 | CORE | HIGH
+Palm Oil | Palm Oil | Palm oil | '2165 | CORE | HIGH
+Sugar | Sugar (Raw Equivalent) | Raw cane or beet sugar (centrifugal only) | '2351f | CORE | HIGH
+Sugar | Sugar (Raw Equivalent) | Cane sugar, non-centrifugal | '23511.02 | CORE | HIGH
+Sunflower Oil | Sunflowerseed Oil | Sunflower-seed oil, crude | '21631.01 | CORE | HIGH

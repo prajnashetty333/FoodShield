@@ -1,0 +1,204 @@
+- **Project Root/**
+  - README.md: Food Trade Resilience
+  - requirements.txt: File
+- **app/**
+- **data/**
+- **external/**
+- **processed/**
+  - FoodBalanceSheets_E_All_Data.csv: Data file
+  - foodshield_commodity_config.json: File
+  - foodshield_commodity_universe.csv: Data file
+  - foodshield_core_commodities.csv: Data file
+  - foodshield_final_commodity_universe.csv: Data file
+  - research_commodity_crosswalk.csv: Data file
+  - Trade_CropsLivestockIndicators_E_All_Data_(Normalized).csv: Data file
+  - Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv: Data file
+- **foodshield/**
+  - commodity_crosswalk.csv: Data file
+  - foodshield_bilateral_trade_2010_2023.csv: Data file
+  - foodshield_commodity_concordance.csv: Data file
+  - foodshield_commodity_findings_2010_2023.csv: Data file
+  - foodshield_commodity_summary.csv: Data file
+  - foodshield_country_commodity_exposure_2010_2023.csv: Data file
+  - foodshield_country_config.json: File
+  - foodshield_country_findings_2010_2023.csv: Data file
+  - foodshield_country_universe.csv: Data file
+  - foodshield_exposure_metrics_2010_2023.csv: Data file
+  - foodshield_fbs_exposure_mapping.csv: Data file
+  - foodshield_key_statistics_2010_2023.csv: Data file
+  - foodshield_network_summary_2010_2023.csv: Data file
+  - foodshield_persistent_systems_2010_2023.csv: Data file
+  - foodshield_replacement_allocation_2010_2023.csv: Data file
+  - foodshield_replacement_candidates_2010_2023.csv: Data file
+  - foodshield_replacement_results_2010_2023.csv: Data file
+  - foodshield_replacement_summary_2010_2023.csv: Data file
+  - foodshield_research_findings_2010_2023.csv: Data file
+  - foodshield_resilience_commodity_aggregate_2010_2023.csv: Data file
+  - foodshield_resilience_commodity_summary_2010_2023.csv: Data file
+  - foodshield_resilience_commodity_year_2010_2023.csv: Data file
+  - foodshield_resilience_concentration_profile_2010_2023.csv: Data file
+  - foodshield_resilience_country_aggregate_2010_2023.csv: Data file
+  - foodshield_resilience_country_commodity_persistence_2010_2023.csv: Data file
+  - foodshield_resilience_country_summary_2010_2023.csv: Data file
+  - foodshield_resilience_metrics_2010_2023.csv: Data file
+  - foodshield_resilience_profile_commodity_2010_2023.csv: Data file
+  - foodshield_resilience_profile_commodity_matrix_2010_2023.csv: Data file
+  - foodshield_resilience_profile_country_2010_2023.csv: Data file
+  - foodshield_resilience_profile_country_commodity_2010_2023.csv: Data file
+  - foodshield_resilience_profile_exposure_comparison_2010_2023.csv: Data file
+  - foodshield_resilience_profile_overall_2010_2023.csv: Data file
+  - foodshield_resilience_profile_shock_comparison_2010_2023.csv: Data file
+  - foodshield_resilience_profile_stability_2010_2023.csv: Data file
+  - foodshield_resilience_profile_transitions_2010_2023.csv: Data file
+  - foodshield_resilience_profile_type_c_repeated_2010_2023.csv: Data file
+  - foodshield_resilience_profile_type_d_repeated_2010_2023.csv: Data file
+  - foodshield_resilience_profile_type_pathways_2010_2023.csv: Data file
+  - foodshield_resilience_profile_year_matrix_2010_2023.csv: Data file
+  - foodshield_resilience_shock_recovery_analysis_2010_2023.csv: Data file
+  - foodshield_resilience_type_c_systems_2010_2023.csv: Data file
+  - foodshield_resilience_type_d_systems_2010_2023.csv: Data file
+  - foodshield_resilience_year_aggregate_2010_2023.csv: Data file
+  - foodshield_resilience_year_summary_2010_2023.csv: Data file
+  - foodshield_sensitivity_capacity_2010_2023.csv: Data file
+  - foodshield_sensitivity_heec_concentration_2010_2023.csv: Data file
+  - foodshield_sensitivity_profile_transitions_2010_2023.csv: Data file
+  - foodshield_sensitivity_rank_2010_2023.csv: Data file
+  - foodshield_sensitivity_summary_2010_2023.csv: Data file
+  - foodshield_sensitivity_type_c_2010_2023.csv: Data file
+  - foodshield_sensitivity_type_d_2010_2023.csv: Data file
+  - foodshield_sensitivity_window_2010_2023.csv: Data file
+  - foodshield_shock_scenarios_2010_2023.csv: Data file
+  - foodshield_shock_summary_2010_2023.csv: Data file
+  - foodshield_step6a_summary.csv: Data file
+  - foodshield_step7a_summary.csv: Data file
+  - foodshield_step8b1_capacity_ratio_buckets_2010_2023.csv: Data file
+  - foodshield_step8b1_heec_concentration_2010_2023.csv: Data file
+  - foodshield_step8b1_scenario_capacity_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b1_top_heec_values_2010_2023.csv: Data file
+  - foodshield_step8b1_type_c_cases_2010_2023.csv: Data file
+  - foodshield_step8b1_type_d_cases_2010_2023.csv: Data file
+  - foodshield_step8b1_type_reconciliation_2010_2023.csv: Data file
+  - foodshield_step8b1_zero_heec_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b_capacity_buckets_2010_2023.csv: Data file
+  - foodshield_step8b_capacity_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b_commodity_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b_heec_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b_top_unreplaced_cases_2010_2023.csv: Data file
+  - foodshield_step8b_type_c_cases_2010_2023.csv: Data file
+  - foodshield_step8b_type_d_cases_2010_2023.csv: Data file
+  - foodshield_step8b_year_diagnostics_2010_2023.csv: Data file
+  - foodshield_step8b_zero_heec_diagnostics_2010_2023.csv: Data file
+  - foodshield_supplier_history_2010_2023.csv: Data file
+  - foodshield_supplier_shares_2010_2023.csv: Data file
+  - foodshield_supplier_shock_2010_2023.csv: Data file
+  - foodshield_trade_flows.csv: Data file
+  - foodshield_trade_flow_summary.csv: Data file
+  - foodshield_trade_network_edges_2010_2023.csv: Data file
+  - food_universe.csv: Data file
+- **raw/**
+  - FoodBalanceSheets_E_All_Data.csv: Data file
+  - FoodBalanceSheets_E_ItemCodes.csv: Data file
+  - Trade_CropsLivestockIndicators_E_All_Data_(Normalized).csv: Data file
+  - Trade_CropsLivestock_E_All_Data_(Normalized).csv: Data file
+  - Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv: Data file
+  - Trade_DetailedTradeMatrix_E_ItemCodes.csv: Data file
+  - Trade_Indices_E_All_Data_(Normalized).csv: Data file
+  - unique_entities.json: File
+  - Value_of_Production_E_All_Data_(Normalized).csv: Data file
+  - Value_shares_industry_primary_factors_E_All_Data_(Normalized).csv: Data file
+  - World_Census_Agriculture_E_All_Data_(Normalized).csv: Data file
+- **notebooks/**
+- **outputs/**
+- **figures/**
+- **models/**
+- **tables/**
+- **reports/**
+  - repository_cleanup_report.md: Markdown document
+- **figures/**
+  - fig01_supplier_concentration.png: Image file
+  - fig02_shock_severity_by_commodity.png: Image file
+  - fig03_replacement_pathway_by_commodity.png: Image file
+  - fig04_resilience_profiles.png: Image file
+  - fig05_persistent_constraints_heatmap.png: Image file
+  - fig06_capacity_sensitivity.png: Image file
+  - fig07_profile_transition_heatmap.png: Image file
+  - fig08_exposure_vs_replacement.png: Image file
+  - FOODSHIELD_STEP_9F_FIGURE_CATALOG.md: FOODSHIELD STEP 9F - FIGURE CATALOG
+- **methodology/**
+  - commodity_concordance_final.md: FOODSHIELD Final Commodity Concordance
+  - foodshield_commodity_methodology.md: FOODSHIELD Commodity Methodology
+  - FOODSHIELD_DATATHON_STORY.md: FOODSHIELD — DataThon Story
+  - FOODSHIELD_FIGURE_MESSAGE_MAP.md: FOODSHIELD — Figure Message Map
+  - FOODSHIELD_JUDGE_QA.md: FOODSHIELD — Judge Q&A
+  - FOODSHIELD_STEP_9F_VISUALIZATION_REPORT.md: FOODSHIELD STEP 9F: VISUALIZATION REPORT
+  - FOODSHIELD_STEP_9G_RESEARCH_NARRATIVE.md: FOODSHIELD — Research Narrative
+- **policy/**
+  - FOODSHIELD_DECISION_FRAMEWORK.md: FOODSHIELD — Decision Framework
+  - FOODSHIELD_POLICY_MATRIX.md: FOODSHIELD — Policy Matrix
+  - FOODSHIELD_STEP_9H_POLICY_INSIGHTS.md: FOODSHIELD — Policy Insights
+- **validation/**
+  - concordance_validation_report.md: FOODSHIELD Commodity Concordance Validation Report
+  - foodshield_commodity_validation_report.txt: File
+  - foodshield_country_validation_report.txt: File
+  - FOODSHIELD_STEP_3C_FINAL_REPORT.txt: File
+  - FOODSHIELD_STEP_4B_COUNTRY_VALIDATION_REPORT.md: FOODSHIELD STEP 4B: COUNTRY UNIVERSE VALIDATION REPORT
+  - FOODSHIELD_STEP_5A_TRADE_SCHEMA_REPORT.md: FOODSHIELD STEP 5A: Trade Matrix Schema & Data Foundation Audit
+  - FOODSHIELD_STEP_5B_TRADE_FLOW_VALIDATION_REPORT.md: FOODSHIELD STEP 5B: TRADE FLOW VALIDATION REPORT
+  - FOODSHIELD_STEP_6A_EXPOSURE_VALIDATION_REPORT.md: FOODSHIELD STEP 6A: EXPOSURE VALIDATION REPORT
+  - FOODSHIELD_STEP_7A_EXPOSURE_METRICS_REPORT.md: FOODSHIELD STEP 7A EXPOSURE METRICS REPORT
+  - FOODSHIELD_STEP_7B_NETWORK_VALIDATION_REPORT.md: FOODSHIELD STEP 7B: NETWORK VALIDATION REPORT
+  - FOODSHIELD_STEP_8A_SUPPLIER_SHOCK_VALIDATION_REPORT.md: Markdown document
+  - FOODSHIELD_STEP_8B1_FINAL_DIAGNOSTIC_REPORT.md: FOODSHIELD Step 8B1 Final Diagnostic Report
+  - FOODSHIELD_STEP_8B_DIAGNOSTIC_REPORT.md: FOODSHIELD Step 8B Diagnostic Report
+  - FOODSHIELD_STEP_8B_REPLACEMENT_VALIDATION_REPORT.md: FOODSHIELD_STEP_8B_REPLACEMENT_VALIDATION_REPORT
+  - FOODSHIELD_STEP_9A_RESILIENCE_METRICS_VALIDATION_REPORT.md: FOODSHIELD Step 9A Resilience Metrics Validation Report
+  - FOODSHIELD_STEP_9B_RESILIENCE_PROFILE_VALIDATION_REPORT.md: Markdown document
+  - FOODSHIELD_STEP_9C_RESILIENCE_AGGREGATION_VALIDATION_REPORT.md: FOODSHIELD STEP 9C RESILIENCE AGGREGATION VALIDATION REPORT
+  - FOODSHIELD_STEP_9D_ROBUSTNESS_SENSITIVITY_VALIDATION_REPORT.md: FOODSHIELD STEP 9D ROBUSTNESS AND SENSITIVITY VALIDATION REPORT
+  - FOODSHIELD_STEP_9E_RESEARCH_FINDINGS_REPORT.md: FOODSHIELD STEP 9E RESEARCH FINDINGS
+  - FOODSHIELD_STEP_9F_R_VISUALIZATION_REFINEMENT_REPORT.md: FOODSHIELD STEP 9F-R VISUALIZATION REFINEMENT REPORT
+  - FOODSHIELD_STEP_9G_CLAIM_AUDIT.md: FOODSHIELD — Claim Strength Audit
+  - FOODSHIELD_STEP_9G_RESEARCH_STORY_VALIDATION_REPORT.md: FOODSHIELD STEP 9G - RESEARCH STORY VALIDATION REPORT
+  - FOODSHIELD_STEP_9H_POLICY_VALIDATION_REPORT.md: FOODSHIELD STEP 9H - POLICY VALIDATION REPORT
+- **scratch/**
+  - test_script.py: Python script
+  - test_sens.py: Python script
+- **scripts/**
+  - foodshield_step9b_profiles.py: Python script
+- **__pycache__/**
+  - foodshield_step9b_profiles.cpython-310.pyc: File
+- **src/**
+- **analysis/**
+  - step8b1_diagnostic.py: Python script
+  - step8b_diagnostic.py: Python script
+  - step9a_resilience_metrics.py: Python script
+  - step9c_resilience_aggregation.py: Python script
+  - step9d_robustness_sensitivity.py: Python script
+  - step9e_research_synthesis.py: Python script
+- **data/**
+  - build_foodshield_concordance.py: Python script
+  - build_item_catalog.py: Python script
+  - extract_countries.py: Python script
+  - finalize_commodity_universe.py: Python script
+  - finalize_foodshield_concordance.py: Python script
+  - lock_commodity_universe.py: Python script
+  - process_countries.py: Python script
+  - process_faostat.py: Python script
+  - rank_foods.py: Python script
+  - step4b_process.py: Python script
+- **exposure/**
+  - build_foodshield_exposure.py: Python script
+  - build_foodshield_trade_flows.py: Python script
+  - step7a_metrics.py: Python script
+  - validate_step7a.py: Python script
+- **features/**
+- **modeling/**
+- **network/**
+  - step7b_network.py: Python script
+- **replacement/**
+  - step8b_replacement.py: Python script
+- **resilience/**
+- **shock/**
+  - step8a_supplier_shock.py: Python script
+- **visualization/**
+  - step9f_visualizations.py: Python script
