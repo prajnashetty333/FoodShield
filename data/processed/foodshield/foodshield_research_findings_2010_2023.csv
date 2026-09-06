@@ -1,0 +1,6 @@
+finding_id,research_question_component,finding,metric,value,unit,scope,source_step,interpretation
+F01,Replacement feasibility,Most modeled Rank-1 supplier-shock losses were replaceable under baseline HEEC,mean_replacement_rate,0.998330127790767,rate,All capacity-valid Rank-1 scenarios,Step 8B/9B,High baseline physical capability
+F02,Replacement pathway,The majority of scenarios can be resolved purely through current-year existing suppliers,type_a_share,0.8704464530265681,rate,All capacity-valid Rank-1 scenarios,Step 9B,Strong existing-network resilience
+F03,New origins,A meaningful minority of scenarios structurally require genuinely new origins to complete replacement,type_c_share,0.08545603944124898,rate,All capacity-valid Rank-1 scenarios,Step 9B,Dependence on new partners
+F04,Persistence,Certain country-commodity systems repeatedly experience Type C or D constraints over time,repeated_type_c_systems,224.0,count,All capacity-valid Rank-1 scenarios,Step 9C,Recurring structural vulnerability
+F05,Robustness,Replacement rates remain high even when historical capacity is significantly constrained (reduced by 75%),25_heec_replacement_rate,0.989063789535222,rate,0.25x HEEC Rank-1 scenarios,Step 9D,Overall capacity robustness

@@ -50,6 +50,8 @@ npm run dev
 
 Use `npm run build` to build the frontend. Do not casually run pipeline scripts: they can overwrite locked outputs.
 
+Production hosting (Render backend, Vercel frontend) is documented in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The API is `backend.main:app` and must be started from the repository root.
+
 ## Status and limitations
 
 The locked primary baseline has 10,953 scenarios and 99.83% mean modeled replacement. Current validation is recorded in `reports/validation/FOODSHIELD_STEP_10_1_FINAL_SUBMISSION_AUDIT.md`; live FastAPI/browser verification remains environment-dependent.

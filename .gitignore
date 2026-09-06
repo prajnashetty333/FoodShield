@@ -13,12 +13,23 @@ frontend/dist/
 *.log
 *.tmp
 *.temp
+build/
 
 # Data folders
 /data/raw/*
 !/data/raw/.gitkeep
 /data/processed/*
 !/data/processed/.gitkeep
+!/data/processed/foodshield/
+/data/processed/foodshield/*
+!/data/processed/foodshield/.gitkeep
+!/data/processed/foodshield/foodshield_resilience_metrics_2010_2023.csv
+!/data/processed/foodshield/foodshield_research_findings_2010_2023.csv
+!/data/processed/foodshield/foodshield_replacement_results_2010_2023.csv
+!/data/processed/foodshield/foodshield_supplier_shock_2010_2023.csv
+!/data/processed/foodshield/foodshield_exposure_metrics_2010_2023.csv
+!/data/processed/foodshield/foodshield_sensitivity_summary_2010_2023.csv
+!/data/processed/foodshield/foodshield_sensitivity_profile_transitions_2010_2023.csv
 /data/external/*
 !/data/external/.gitkeep
 
@@ -36,6 +47,9 @@ frontend/dist/
 
 # Environment
 .env
+.env.*
+!.env.example
+!**/.env.example
 .venv
 env/
 venv/
