@@ -1,5 +1,5 @@
-from backend.services.data_loader import data_loader
-from backend.schemas.overview import OverviewResponse, ProfileDistribution
+from services.data_loader import data_loader
+from schemas.overview import OverviewResponse, ProfileDistribution
 
 def get_overview_metrics() -> OverviewResponse:
     df = data_loader.get_resilience_metrics()
