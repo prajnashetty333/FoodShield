@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.services.overview_service import get_overview_metrics
-from backend.schemas.overview import OverviewResponse
+from services.overview_service import get_overview_metrics
+from schemas.overview import OverviewResponse
 
 router = APIRouter()
 
