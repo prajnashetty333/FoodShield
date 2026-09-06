@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.services.commodity_service import get_commodity_analysis
-from backend.schemas.commodity import CommodityAnalysisResponse
+from services.commodity_service import get_commodity_analysis
+from schemas.commodity import CommodityAnalysisResponse
 from typing import List
 import backend.config as cfg
 
