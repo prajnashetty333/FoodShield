@@ -1,6 +1,6 @@
-from backend.services.data_loader import data_loader
-from backend.schemas.shock import ShockAnalysisResponse
-from backend.services.country_mapping import get_country_name, get_country_code
+from services.data_loader import data_loader
+from schemas.shock import ShockAnalysisResponse
+from services.country_mapping import get_country_name, get_country_code
 from fastapi import HTTPException
 import math
 
