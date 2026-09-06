@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.services.sensitivity_service import get_sensitivity_analysis
-from backend.schemas.sensitivity import SensitivityAnalysisResponse
+from services.sensitivity_service import get_sensitivity_analysis
+from schemas.sensitivity import SensitivityAnalysisResponse
 
 router = APIRouter()
 
