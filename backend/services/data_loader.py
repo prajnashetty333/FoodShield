@@ -1,7 +1,7 @@
 import pandas as pd
 from functools import lru_cache
 import numpy as np
-import backend.config as cfg
+import config as cfg
 import os
 
 class DataLoader:
