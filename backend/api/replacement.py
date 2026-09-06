@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
-from backend.services.replacement_service import get_replacement_analysis
-from backend.schemas.replacement import ReplacementAnalysisResponse
+from services.replacement_service import get_replacement_analysis
+from schemas.replacement import ReplacementAnalysisResponse
 
 router = APIRouter()
 
