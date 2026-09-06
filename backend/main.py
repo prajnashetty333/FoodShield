@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import overview, countries, commodities, shocks, replacement, sensitivity, policy, methodology
+from api import overview, countries, commodities, shocks, replacement, sensitivity, policy, methodology
 
 app = FastAPI(title="FOODSHIELD Dashboard API", version="1.0.0")
 
